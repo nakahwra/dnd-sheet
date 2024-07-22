@@ -2,4 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
+<main class="container mx-auto px-4">
+	<slot />
+</main>
