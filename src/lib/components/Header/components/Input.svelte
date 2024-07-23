@@ -1,9 +1,12 @@
 <script lang="ts">
+	import { Input } from '$lib/components/ui/input';
+	import { Label } from '$lib/components/ui/label';
+
 	export let label: string;
 	export let value: string;
 </script>
 
-<div class="flex flex-col">
-	<label class="font-bold text-slate-600" for="character-name">{label}</label>
-	<input class="rounded-md border-2 pl-1" type="text" {value} />
+<div class="flex flex-col gap-2">
+	<Label class="font-bold" for="character-name">{label}</Label>
+	<Input type="text" {value} />
 </div>

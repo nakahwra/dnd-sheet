@@ -1,4 +1,7 @@
 <script lang="ts">
+	import * as Card from '$lib/components/ui/card';
+	import { Checkbox } from '$lib/components/ui/checkbox';
+
 	import AbilityScoreIcon from '~icons/material-symbols/cognition-outline';
 	import Ability from './components/Ability.svelte';
 
@@ -16,49 +19,49 @@
 	}
 </script>
 
-<div class="rounded-md border-2 border-slate-400 bg-slate-100 p-2">
-	<div class="mb-2 flex items-center gap-2">
-		<AbilityScoreIcon class="text-slate-400" />
-		<h1 class=" font-bold text-slate-400">Ability Scores</h1>
-	</div>
+<Card.Root>
+	<Card.Header>
+		<Card.Title class="flex flex-row gap-2">
+			<AbilityScoreIcon />
+			Ability Scores
+		</Card.Title>
+	</Card.Header>
 
-	<ul class="flex flex-col gap-4">
-		{#each abilityTypes as t}
-			{#if t === 'proficiency'}
-				<li>
-					<Ability abilityType="prof." bind:value={$sheet.abilityScores.proficiency} />
-				</li>
-			{:else}
-				<li class="flex gap-2">
-					<Ability abilityType={t.slice(0, 3)} bind:value={$sheet.abilityScores[t].score} />
+	<Card.Content>
+		<ul class="flex flex-col gap-4">
+			{#each abilityTypes as t}
+				{#if t === 'proficiency'}
+					<li>
+						<Ability abilityType="prof." bind:value={$sheet.abilityScores.proficiency} />
+					</li>
+				{:else}
+					<li class="flex gap-4">
+						<Ability abilityType={t.slice(0, 3)} bind:value={$sheet.abilityScores[t].score} />
 
-					<div class="texsla flex flex-col justify-start">
-						{#each Object.keys($sheet.abilityScores[t].skills) as s}
-							<div class="flex gap-2">
-								<input
-									type="checkbox"
-									bind:checked={$sheet.abilityScores[t].skills[s].proficiency}
-								/>
-								<input
-									type="checkbox"
-									bind:checked={$sheet.abilityScores[t].skills[s].expertise}
-									disabled={!$sheet.abilityScores[t].skills[s].proficiency}
-								/>
+						<div class="mt-4 flex flex-col justify-center">
+							{#each Object.keys($sheet.abilityScores[t].skills) as s}
+								<div class="flex items-center gap-2">
+									<Checkbox bind:checked={$sheet.abilityScores[t].skills[s].proficiency} />
+									<Checkbox
+										bind:checked={$sheet.abilityScores[t].skills[s].expertise}
+										disabled={!$sheet.abilityScores[t].skills[s].proficiency}
+									/>
 
-								<span
-									>{getTotalModifier(
-										$sheet.abilityScores[t].score,
-										$sheet.abilityScores['proficiency'],
-										$sheet.abilityScores[t].skills[s]
-									)}</span
-								>
+									<span
+										>{getTotalModifier(
+											$sheet.abilityScores[t].score,
+											$sheet.abilityScores['proficiency'],
+											$sheet.abilityScores[t].skills[s]
+										)}</span
+									>
 
-								<span>{s}</span>
-							</div>
-						{/each}
-					</div>
-				</li>
-			{/if}
-		{/each}
-	</ul>
-</div>
+									<span>{s}</span>
+								</div>
+							{/each}
+						</div>
+					</li>
+				{/if}
+			{/each}
+		</ul>
+	</Card.Content>
+</Card.Root>
