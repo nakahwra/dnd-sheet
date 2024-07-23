@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 	import { Checkbox } from '$lib/components/ui/checkbox';
+	import { Switch } from '$lib/components/ui/switch';
 
 	import AbilityScoreIcon from '~icons/material-symbols/cognition-outline';
 	import Ability from './components/Ability.svelte';
@@ -8,6 +9,7 @@
 	import { sheet, type AbilityScoresKeys, type SkillType } from '$lib/stores/sheet';
 
 	let abilityTypes = Object.keys($sheet.abilityScores) as Array<AbilityScoresKeys>;
+	let edit = false;
 
 	function getTotalModifier(abilityScore: number, proficiencyBonus: number, skill: SkillType) {
 		let modifier = Math.floor((abilityScore - 10) / 2);
@@ -19,12 +21,13 @@
 	}
 </script>
 
-<Card.Root>
-	<Card.Header>
+<Card.Root class="w-[310px]">
+	<Card.Header class="flex flex-row items-end justify-between gap-4">
 		<Card.Title class="flex flex-row gap-2">
 			<AbilityScoreIcon />
 			Ability Scores
 		</Card.Title>
+		<Switch bind:checked={edit} />
 	</Card.Header>
 
 	<Card.Content>
@@ -41,11 +44,17 @@
 						<div class="mt-4 flex flex-col justify-center">
 							{#each Object.keys($sheet.abilityScores[t].skills) as s}
 								<div class="flex items-center gap-2">
-									<Checkbox bind:checked={$sheet.abilityScores[t].skills[s].proficiency} />
-									<Checkbox
-										bind:checked={$sheet.abilityScores[t].skills[s].expertise}
-										disabled={!$sheet.abilityScores[t].skills[s].proficiency}
-									/>
+									{#if edit}
+										<Checkbox
+											class={`${edit ? 'visible' : 'invisible'} `}
+											bind:checked={$sheet.abilityScores[t].skills[s].proficiency}
+										/>
+										<Checkbox
+											class={`${edit ? 'visible' : 'invisible'} `}
+											bind:checked={$sheet.abilityScores[t].skills[s].expertise}
+											disabled={!$sheet.abilityScores[t].skills[s].proficiency}
+										/>
+									{/if}
 
 									<span
 										>{getTotalModifier(
