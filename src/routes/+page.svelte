@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '../components/Header/Header.svelte';
+	import { Header } from '$lib';
 
 	interface Sheet {
 		characterName: string;
