@@ -1,11 +1,7 @@
 <script lang="ts">
 	import { Header } from '$lib';
 
-	interface Sheet {
-		characterName: string;
-	}
-
-	let sheet: Sheet;
+	import { sheet } from '$lib/stores/sheet';
 
 	function loadJSON(event: Event) {
 		const file = event.target?.files[0];
@@ -14,16 +10,16 @@
 		reader.onload = function () {
 			const data = JSON.parse(reader.result as string);
 
-			sheet = data;
+			$sheet = data;
 		};
 
 		reader.readAsText(file);
 	}
 
-	$: console.log('sheet', sheet);
+	$: isSheetLoaded = Object.keys($sheet).length > 0;
 </script>
 
 <span>load json</span>
 <input type="file" accept=".json" on:change={loadJSON} />
 
-{#if sheet} <Header {sheet} /> {/if}
+{#if isSheetLoaded} <Header /> {/if}

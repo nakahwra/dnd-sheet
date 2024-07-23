@@ -2,7 +2,10 @@
 	import IconAccessibility from '~icons/material-symbols/info-outline';
 	import Input from './components/Input.svelte';
 
-	export let sheet;
+	import { sheet } from '$lib/stores/sheet';
+
+	let { info } = $sheet;
+	console.log('info', info);
 </script>
 
 <header class="rounded-md border-2 border-slate-400 bg-slate-100 p-2">
@@ -12,11 +15,11 @@
 	</div>
 
 	<div class="grid grid-cols-3 gap-2">
-		<Input label="Character Name" value={sheet.characterName} />
-		<Input label="Class" value={sheet.class} />
-		<Input label="Race" value={sheet.race} />
-		<Input label="Background" value={sheet.background} />
-		<Input label="Alignment" value={sheet.alignment} />
-		<Input label="Player Name" value={sheet.playerName} />
+		<Input label="Character Name" value={info.characterName} />
+		<Input label="Class" value={info.class} />
+		<Input label="Race" value={info.race} />
+		<Input label="Background" value={info.background} />
+		<Input label="Alignment" value={info.alignment} />
+		<Input label="Player Name" value={info.playerName} />
 	</div>
 </header>

@@ -1,8 +1,10 @@
 {
-  "characterName": "John Doe",
-  "class": "Sorcerer 3 / Bard 1",
-  "race": "Half-Elf",
-  "background": "Entertainer",
-  "alignment": "Chaotic Good",
-  "playerName": "Jane Doe"
+  "info": {
+    "characterName": "John Doe",
+    "class": "Sorcerer 3 / Bard 1",
+    "race": "Half-Elf",
+    "background": "Entertainer",
+    "alignment": "Chaotic Good",
+    "playerName": "Jane Doe"
+  }
 }
