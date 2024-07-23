@@ -12,17 +12,18 @@
 	let edit = false;
 
 	function getTotalModifier(abilityScore: number, proficiencyBonus: number, skill: SkillType) {
+		const profBonusNumber = Number(proficiencyBonus);
 		let modifier = Math.floor((abilityScore - 10) / 2);
 
-		if (skill.expertise) modifier += proficiencyBonus;
-		if (skill.proficiency) modifier += proficiencyBonus;
+		if (skill.expertise) modifier += profBonusNumber;
+		if (skill.proficiency) modifier += profBonusNumber;
 
 		return modifier >= 0 ? `+${modifier}` : `${modifier}`;
 	}
 </script>
 
 <Card.Root class="w-[310px]">
-	<Card.Header class="flex flex-row items-end justify-between gap-4">
+	<Card.Header class="flex flex-row items-start justify-between gap-4">
 		<Card.Title class="flex flex-row gap-2">
 			<AbilityScoreIcon />
 			Ability Scores

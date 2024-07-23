@@ -1,6 +1,6 @@
 {
   "info": {
-    "characterName": "John Doe",
+    "characterName": "Blorbo",
     "class": "Sorcerer 3 / Bard 1",
     "race": "Half-Elf",
     "background": "Entertainer",
@@ -135,5 +135,11 @@
         }
       }
     }
+  },
+  "stats": {
+    "ac": 12,
+    "initiative": 2,
+    "speed": 10,
+    "hp": 20
   }
 }

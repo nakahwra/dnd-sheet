@@ -30,9 +30,17 @@ interface AbilityScores {
 	charisma: AbilityScoreType;
 }
 
+interface Stats {
+	ac: number;
+	initiative: number;
+	speed: number;
+	hp: number;
+}
+
 interface Sheet {
 	info: Info;
 	abilityScores: AbilityScores;
+	stats: Stats;
 }
 
 export type AbilityScoresKeys = keyof AbilityScores;

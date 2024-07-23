@@ -4,8 +4,6 @@
 
 	export let abilityType: string;
 	export let value: number;
-
-	// $: modifier = Math.floor((value - 10) / 2);
 </script>
 
 <div class="flex flex-col gap-1">
