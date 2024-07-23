@@ -5,7 +5,6 @@
 	import { sheet } from '$lib/stores/sheet';
 
 	let { info } = $sheet;
-	console.log('info', info);
 </script>
 
 <header class="rounded-md border-2 border-slate-400 bg-slate-100 p-2">

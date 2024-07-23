@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Header } from '$lib';
+	import AbilityScores from '$lib/components/AbilityScores/AbilityScores.svelte';
 
 	import { sheet } from '$lib/stores/sheet';
 
@@ -16,10 +17,22 @@
 		reader.readAsText(file);
 	}
 
+	// $: console.log('sheet', $sheet);
+
 	$: isSheetLoaded = Object.keys($sheet).length > 0;
 </script>
 
 <span>load json</span>
 <input type="file" accept=".json" on:change={loadJSON} />
 
-{#if isSheetLoaded} <Header /> {/if}
+{#if isSheetLoaded}
+	<div class="flex flex-col gap-2">
+		<Header />
+
+		<div class="grid grid-cols-[auto_1fr_auto] gap-4">
+			<AbilityScores />
+			<div>main column</div>
+			<div>third column</div>
+		</div>
+	</div>
+{/if}
