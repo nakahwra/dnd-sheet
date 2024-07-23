@@ -9,13 +9,25 @@ interface Info {
 	playerName: string;
 }
 
+export type SkillType = {
+	proficiency: boolean;
+	expertise: boolean;
+};
+
+type AbilityScoreType = {
+	score: number;
+	skills: {
+		[key: string]: SkillType;
+	};
+};
 interface AbilityScores {
-	strength: number;
-	dexterity: number;
-	constitution: number;
-	intelligence: number;
-	wisdom: number;
-	charisma: number;
+	proficiency: number;
+	strength: AbilityScoreType;
+	dexterity: AbilityScoreType;
+	constitution: AbilityScoreType;
+	intelligence: AbilityScoreType;
+	wisdom: AbilityScoreType;
+	charisma: AbilityScoreType;
 }
 
 interface Sheet {

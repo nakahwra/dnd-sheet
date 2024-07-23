@@ -17,7 +17,7 @@
 		reader.readAsText(file);
 	}
 
-	// $: console.log('sheet', $sheet);
+	$: console.log('sheet', $sheet);
 
 	$: isSheetLoaded = Object.keys($sheet).length > 0;
 </script>
@@ -26,7 +26,7 @@
 <input type="file" accept=".json" on:change={loadJSON} />
 
 {#if isSheetLoaded}
-	<div class="flex flex-col gap-2">
+	<div class="flex flex-col gap-2 text-slate-800">
 		<Header />
 
 		<div class="grid grid-cols-[auto_1fr_auto] gap-4">

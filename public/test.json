@@ -8,11 +8,132 @@
     "playerName": "Jane Doe"
   },
   "abilityScores": {
-    "strength": 8,
-    "dexterity": 14,
-    "constitution": 12,
-    "intelligence": 13,
-    "wisdom": 10,
-    "charisma": 16
+    "proficiency": 2,
+    "strength": {
+      "score": 10,
+      "skills": {
+        "saving throw": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "athletics": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    },
+    "dexterity": {
+      "score": 14,
+      "skills": {
+        "saving throw": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "acrobatics": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "sleight of hand": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "stealth": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    },
+    "constitution": {
+      "score": 12,
+      "skills": {
+        "saving throw": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    },
+    "intelligence": {
+      "score": 14,
+      "skills": {
+        "saving throw": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "arcana": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "history": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "investigation": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "nature": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "religion": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    },
+    "wisdom": {
+      "score": 10,
+      "skills": {
+        "saving throw": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "animal handling": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "insight": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "medicine": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "perception": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "survival": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    },
+    "charisma": {
+      "score": 16,
+      "skills": {
+        "saving throw": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "deception": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "intimidation": {
+          "proficiency": false,
+          "expertise": false
+        },
+        "performance": {
+          "proficiency": true,
+          "expertise": false
+        },
+        "persuasion": {
+          "proficiency": false,
+          "expertise": false
+        }
+      }
+    }
   }
 }
