@@ -11,24 +11,13 @@
 	export let onClose: () => void;
 	export let onSave: () => void;
 
-	$: {
-		console.log(
-			'id',
-			attack.id,
-			'name',
-			attack.name,
-			'damage',
-			attack.damage,
-			'ability',
-			attack.ability,
-			'proficiency',
-			attack.proficiency
-		);
-	}
+	let selected = { value: attack.ability, label: attack.ability };
 
 	const abilityOptions = (Object.keys($sheet.abilityScores) as AbilityScoresKeys[]).filter(
 		(a) => a !== 'proficiency'
 	);
+
+	$: if (attack.ability !== selected.value) attack.ability = selected.value;
 </script>
 
 <Dialog.Root open={isOpen} onOpenChange={onClose}>
@@ -51,7 +40,7 @@
 				label={'Modifier'}
 				type="select"
 				options={abilityOptions}
-				bind:value={attack.ability}
+				bind:selected
 			/>
 		</div>
 
