@@ -1,54 +1,57 @@
 <script lang="ts">
-	import { Input } from '$lib';
+	import { AttackDialog } from '$lib';
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
-	import * as Dialog from '$lib/components/ui/dialog';
-	import { Switch } from '$lib/components/ui/switch';
 
 	import AddIcon from '~icons/mdi/plus';
 	import AtkIcon from '~icons/mdi/sword';
 
-	import { sheet, type AbilityScoresKeys, type AttackType } from '$lib/stores/sheet';
+	import { sheet, type AttackType } from '$lib/stores/sheet';
 	import Attack from './components/Attack.svelte';
 
+	const DEFAULT_ATTACK: AttackType = {
+		id: '',
+		name: '',
+		damage: '',
+		ability: 'strength',
+		proficiency: true
+	};
+
 	let attacks: AttackType[] = [];
-	let edit = false;
+	let editingAttack: AttackType = { ...DEFAULT_ATTACK };
+	let isOpen = false;
 
-	let id: string = '';
-	let name: string = '';
-	let damage: string = '';
-	let ability: AbilityScoresKeys = 'strength';
-	let proficiency: boolean = true;
+	function handleClose() {
+		isOpen = false;
+		handleClear();
+	}
 
-	const abilityOptions = (Object.keys($sheet.abilityScores) as AbilityScoresKeys[]).filter(
-		(a) => a !== 'proficiency'
-	);
+	function handleEdit(atk: AttackType) {
+		editingAttack = atk;
+		isOpen = true;
+	}
 
-	const handleSave = () => {
-		$sheet = {
-			...$sheet,
-			attacks: [
-				...attacks,
-				{
-					id: Math.random().toString(36).substr(2, 9),
-					name,
-					damage,
-					ability,
-					proficiency
-				}
-			]
-		};
+	function handleSave() {
+		const isEditing = $sheet.attacks.some((a) => a.id === editingAttack.id);
+		const { id, name, ability, proficiency, damage } = editingAttack;
+
+		if (isEditing) {
+			$sheet.attacks = $sheet.attacks.map((a) => (a.id === id ? { ...editingAttack } : a));
+		} else {
+			$sheet.attacks = [...$sheet.attacks, { id, name, ability, proficiency, damage }];
+		}
 
 		handleClear();
-	};
+	}
 
-	const handleClear = () => {
-		id = '';
-		name = '';
-		damage = '';
-		ability = 'strength';
-		proficiency = true;
-	};
+	function handleClear() {
+		editingAttack = { ...DEFAULT_ATTACK };
+		isOpen = false;
+	}
+
+	function handleDelete(id: string) {
+		$sheet.attacks = $sheet.attacks.filter((a) => a.id !== id);
+	}
 
 	$: attacks = $sheet.attacks;
 </script>
@@ -60,56 +63,16 @@
 			Attacks
 		</Card.Title>
 		<div class="flex items-center gap-4">
-			<Switch bind:checked={edit} />
-
-			<Dialog.Root>
-				<Dialog.Trigger>
-					<Button class="p-2" variant="outline" size="sm">
-						<AddIcon />
-					</Button>
-				</Dialog.Trigger>
-				<Dialog.Content>
-					<Dialog.Header>
-						<Dialog.Title>Add new attack</Dialog.Title>
-					</Dialog.Header>
-					<Input id="atk-name-input" label={'Attack Name'} type="text" bind:value={name} />
-					<div class="flex gap-8">
-						<Input id={`${id}-prof`} label="Proficiency" type="checkbox" bind:value={proficiency} />
-						<Input
-							id={ability}
-							label={'Attack Modifier'}
-							type="select"
-							options={abilityOptions}
-							bind:value={ability}
-						/>
-					</div>
-					<Input id={damage} label={'Attack Damage'} type="text" bind:value={damage} />
-					<Dialog.Footer>
-						<Dialog.Close>
-							<Button variant="outline" on:click={handleClear}>Cancel</Button>
-						</Dialog.Close>
-						<Dialog.Close>
-							<Button
-								variant="default"
-								disabled={!name || !ability || !damage}
-								on:click={handleSave}>Save</Button
-							>
-						</Dialog.Close>
-					</Dialog.Footer>
-				</Dialog.Content>
-			</Dialog.Root>
+			<Button class="p-2" variant="ghost" on:click={() => (isOpen = true)}>
+				<AddIcon />
+			</Button>
 		</div>
 	</Card.Header>
 	<Card.Content>
 		{#each attacks as atk}
-			<Attack
-				id={atk.id}
-				name={atk.name}
-				ability={atk.ability}
-				damage={atk.damage}
-				proficiency={atk.proficiency}
-				{edit}
-			/>
+			<Attack {...atk} {handleEdit} {handleDelete} />
 		{/each}
 	</Card.Content>
 </Card.Root>
+
+<AttackDialog bind:attack={editingAttack} {isOpen} onClose={handleClose} onSave={handleSave} />
