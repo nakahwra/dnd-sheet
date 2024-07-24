@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { Header } from '$lib';
-	import AbilityScores from '$lib/components/AbilityScores/AbilityScores.svelte';
-	import Stats from '$lib/components/Stats/Stats.svelte';
+	import { AbilityScores, Header, Stats } from '$lib';
+	import Attacks from '$lib/components/Attacks/Attacks.svelte';
 
 	import { sheet } from '$lib/stores/sheet';
 
@@ -32,8 +31,9 @@
 
 		<div class="grid grid-cols-[auto_1fr_auto] gap-4">
 			<AbilityScores />
-			<div>
+			<div class="flex flex-col gap-2">
 				<Stats />
+				<Attacks />
 			</div>
 			<div>third column</div>
 		</div>

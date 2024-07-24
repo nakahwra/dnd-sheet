@@ -14,7 +14,7 @@ export type SkillType = {
 	expertise: boolean;
 };
 
-type AbilityScoreType = {
+export type AbilityScoreType = {
 	score: number;
 	skills: {
 		[key: string]: SkillType;
@@ -37,10 +37,19 @@ interface Stats {
 	hp: number;
 }
 
+export type AttackType = {
+	id: string;
+	name: string;
+	ability: AbilityScoresKeys;
+	proficiency: boolean;
+	damage: string;
+};
+
 interface Sheet {
 	info: Info;
 	abilityScores: AbilityScores;
 	stats: Stats;
+	attacks: AttackType[];
 }
 
 export type AbilityScoresKeys = keyof AbilityScores;

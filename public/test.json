@@ -141,5 +141,21 @@
     "initiative": 2,
     "speed": 10,
     "hp": 20
-  }
+  },
+  "attacks": [
+    {
+      "id": "0",
+      "name": "Sword",
+      "ability": "strength",
+      "proficiency": true,
+      "damage": "1d6/slashing"
+    },
+    {
+      "id": "1",
+      "name": "Dagger",
+      "ability": "dexterity",
+      "proficiency": true,
+      "damage": "1d4/piercing"
+    }
+  ]
 }
