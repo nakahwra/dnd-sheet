@@ -38,7 +38,8 @@
 		if (isEditing) {
 			$attacks = $attacks.map((a) => (a.id === id ? { ...editingAttack } : a));
 		} else {
-			$attacks = [...$attacks, { id, name, ability, proficiency, damage }];
+			const newId = $attacks.length.toString();
+			$attacks = [...$attacks, { id: newId, name, ability, proficiency, damage }];
 		}
 
 		handleClear();
