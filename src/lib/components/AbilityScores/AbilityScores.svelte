@@ -6,9 +6,9 @@
 	import AbilityScoreIcon from '~icons/material-symbols/cognition-outline';
 	import Ability from './components/Ability.svelte';
 
-	import { sheet, type AbilityScoresKeys, type SkillType } from '$lib/stores/sheet';
+	import { abilityScores, type AbilityScoresKeys, type SkillType } from '$lib/stores/sheet';
 
-	let abilityTypes = Object.keys($sheet.abilityScores) as Array<AbilityScoresKeys>;
+	let abilityTypes = Object.keys($abilityScores) as Array<AbilityScoresKeys>;
 	let edit = false;
 
 	function getTotalModifier(abilityScore: number, proficiencyBonus: number, skill: SkillType) {
@@ -28,7 +28,7 @@
 			<AbilityScoreIcon />
 			Ability Scores
 		</Card.Title>
-		<Switch bind:checked={edit} />
+		<Switch class="!mt-0" bind:checked={edit} />
 	</Card.Header>
 
 	<Card.Content>
@@ -36,32 +36,32 @@
 			{#each abilityTypes as t}
 				{#if t === 'proficiency'}
 					<li>
-						<Ability abilityType="prof." bind:value={$sheet.abilityScores.proficiency} />
+						<Ability abilityType="prof." bind:value={$abilityScores.proficiency} />
 					</li>
 				{:else}
 					<li class="flex gap-4">
-						<Ability abilityType={t.slice(0, 3)} bind:value={$sheet.abilityScores[t].score} />
+						<Ability abilityType={t.slice(0, 3)} bind:value={$abilityScores[t].score} />
 
 						<div class="mt-4 flex flex-col justify-center">
-							{#each Object.keys($sheet.abilityScores[t].skills) as s}
+							{#each Object.keys($abilityScores[t].skills) as s}
 								<div class="flex items-center gap-2">
 									{#if edit}
 										<Checkbox
 											class={`${edit ? 'visible' : 'invisible'} `}
-											bind:checked={$sheet.abilityScores[t].skills[s].proficiency}
+											bind:checked={$abilityScores[t].skills[s].proficiency}
 										/>
 										<Checkbox
 											class={`${edit ? 'visible' : 'invisible'} `}
-											bind:checked={$sheet.abilityScores[t].skills[s].expertise}
-											disabled={!$sheet.abilityScores[t].skills[s].proficiency}
+											bind:checked={$abilityScores[t].skills[s].expertise}
+											disabled={!$abilityScores[t].skills[s].proficiency}
 										/>
 									{/if}
 
 									<span
 										>{getTotalModifier(
-											$sheet.abilityScores[t].score,
-											$sheet.abilityScores['proficiency'],
-											$sheet.abilityScores[t].skills[s]
+											$abilityScores[t].score,
+											$abilityScores['proficiency'],
+											$abilityScores[t].skills[s]
 										)}</span
 									>
 

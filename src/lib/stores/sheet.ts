@@ -78,7 +78,107 @@ interface Sheet {
 export type AbilityScoresKeys = keyof AbilityScores;
 export type SpellListKeys = keyof SpellList;
 
+const defaultSkill: SkillType = {
+	proficiency: false,
+	expertise: false
+};
+
+const defaultAbilityScore: AbilityScoreType = {
+	score: 10,
+	skills: {
+		'saving throw': { ...defaultSkill }
+	}
+};
+
+const strength: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills,
+		athletics: { ...defaultSkill }
+	}
+};
+
+const dexterity: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills,
+		acrobatics: { ...defaultSkill },
+		sleightOfHand: { ...defaultSkill },
+		stealth: { ...defaultSkill }
+	}
+};
+
+const constitution: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills
+	}
+};
+
+const intelligence: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills,
+		arcana: { ...defaultSkill },
+		history: { ...defaultSkill },
+		investigation: { ...defaultSkill },
+		nature: { ...defaultSkill },
+		religion: { ...defaultSkill }
+	}
+};
+
+const wisdom: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills,
+		animalHandling: { ...defaultSkill },
+		insight: { ...defaultSkill },
+		medicine: { ...defaultSkill },
+		perception: { ...defaultSkill },
+		survival: { ...defaultSkill }
+	}
+};
+
+const charisma: AbilityScoreType = {
+	...defaultAbilityScore,
+	skills: {
+		...defaultAbilityScore.skills,
+		deception: { ...defaultSkill },
+		intimidation: { ...defaultSkill },
+		performance: { ...defaultSkill },
+		persuasion: { ...defaultSkill }
+	}
+};
+
 export const sheet: Writable<Sheet> = writable({} as Sheet);
+
+export const info: Writable<Info> = writable({
+	characterName: '',
+	class: '',
+	race: '',
+	background: '',
+	alignment: '',
+	playerName: ''
+});
+
+export const abilityScores: Writable<AbilityScores> = writable({
+	proficiency: 2,
+	strength,
+	dexterity,
+	constitution,
+	intelligence,
+	wisdom,
+	charisma
+});
+
+export const stats: Writable<Stats> = writable({
+	ac: 10,
+	initiative: 0,
+	speed: 30,
+	hp: 0
+});
+
+export const attacks: Writable<AttackType[]> = writable([]);
 
 export const spells: Writable<SpellList> = writable({
 	0: [],

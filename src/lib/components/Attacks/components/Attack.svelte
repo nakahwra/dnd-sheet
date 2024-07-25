@@ -3,7 +3,7 @@
 	import { getModifier, getSignedModifier } from '$lib/utils';
 
 	import { Button } from '$lib/components/ui/button';
-	import { sheet } from '$lib/stores/sheet';
+	import { abilityScores } from '$lib/stores/sheet';
 
 	import EditIcon from '~icons/mdi/pencil-outline';
 	import DeleteIcon from '~icons/mdi/trash-outline';
@@ -21,9 +21,9 @@
 	let abilityMod: number;
 
 	$: {
-		const profBonus = proficiency ? Number($sheet.abilityScores.proficiency) : 0;
+		const profBonus = proficiency ? Number($abilityScores.proficiency) : 0;
 
-		abilityMod = getModifier(($sheet.abilityScores[ability] as AbilityScoreType).score);
+		abilityMod = getModifier(($abilityScores[ability] as AbilityScoreType).score);
 		modifier = abilityMod + profBonus;
 	}
 </script>

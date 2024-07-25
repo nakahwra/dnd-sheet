@@ -7,12 +7,12 @@
 	import SpeedIcon from '~icons/mdi/run';
 	import StatsIcon from '~icons/mdi/user-heart-outline';
 
-	import { sheet } from '$lib/stores/sheet';
+	import { stats } from '$lib/stores/sheet';
 	import StatInput from './components/StatInput.svelte';
 
-	type StatKeys = keyof typeof $sheet.stats;
+	type StatKeys = keyof typeof $stats;
 
-	const statsKeys = Object.keys($sheet.stats) as Array<StatKeys>;
+	const statsKeys = Object.keys($stats) as Array<StatKeys>;
 
 	const ICONS: Record<StatKeys, () => unknown> = {
 		ac: () => ACIcon,
@@ -33,15 +33,9 @@
 		<ul class="flex gap-4">
 			{#each statsKeys as s}
 				<li class="flex flex-col gap-2">
-					<StatInput stat={s} value={$sheet.stats[s]} type={s === 'hp' ? 'text' : 'number'}>
+					<StatInput stat={s} value={$stats[s]} type={s === 'hp' ? 'text' : 'number'}>
 						<svelte:component this={ICONS[s]()} />
 					</StatInput>
-
-					<!-- <Label class="flex gap-1 font-bold" for="ac">
-						<svelte:component this={ICONS[s]()} />
-						{s.toUpperCase()}
-					</Label>
-					<Input id={s} type="number" min={$sheet.abilityScores.dexterity.score} /> -->
 				</li>
 			{/each}
 		</ul>

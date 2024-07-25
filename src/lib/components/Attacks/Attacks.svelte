@@ -6,7 +6,7 @@
 	import AddIcon from '~icons/mdi/plus';
 	import AtkIcon from '~icons/mdi/sword';
 
-	import { sheet, type AttackType } from '$lib/stores/sheet';
+	import { attacks, type AttackType } from '$lib/stores/sheet';
 	import Attack from './components/Attack.svelte';
 
 	const DEFAULT_ATTACK: AttackType = {
@@ -17,7 +17,7 @@
 		proficiency: true
 	};
 
-	let attacks: AttackType[] = [];
+	let attackTypes: AttackType[] = [];
 	let editingAttack: AttackType = { ...DEFAULT_ATTACK };
 	let isOpen = false;
 
@@ -32,13 +32,13 @@
 	}
 
 	function handleSave() {
-		const isEditing = $sheet.attacks.some((a) => a.id === editingAttack.id);
+		const isEditing = $attacks.some((a) => a.id === editingAttack.id);
 		const { id, name, ability, proficiency, damage } = editingAttack;
 
 		if (isEditing) {
-			$sheet.attacks = $sheet.attacks.map((a) => (a.id === id ? { ...editingAttack } : a));
+			$attacks = $attacks.map((a) => (a.id === id ? { ...editingAttack } : a));
 		} else {
-			$sheet.attacks = [...$sheet.attacks, { id, name, ability, proficiency, damage }];
+			$attacks = [...$attacks, { id, name, ability, proficiency, damage }];
 		}
 
 		handleClear();
@@ -50,10 +50,10 @@
 	}
 
 	function handleDelete(id: string) {
-		$sheet.attacks = $sheet.attacks.filter((a) => a.id !== id);
+		$attacks = $attacks.filter((a) => a.id !== id);
 	}
 
-	$: attacks = $sheet.attacks;
+	$: attackTypes = $attacks;
 </script>
 
 <Card.Root>
@@ -62,14 +62,18 @@
 			<AtkIcon />
 			Attacks
 		</Card.Title>
-		<div class="flex items-center gap-4">
-			<Button class="p-2" variant="ghost" on:click={() => (isOpen = true)}>
+		<div class="!mt-0 flex items-center gap-4">
+			<Button class="p-2" variant="outline" on:click={() => (isOpen = true)}>
 				<AddIcon />
 			</Button>
 		</div>
 	</Card.Header>
 	<Card.Content>
-		{#each attacks as atk}
+		{#if $attacks.length === 0}
+			<span>No attacks added.</span>
+		{/if}
+
+		{#each attackTypes as atk}
 			<Attack {...atk} {handleEdit} {handleDelete} />
 		{/each}
 	</Card.Content>

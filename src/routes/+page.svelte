@@ -17,27 +17,20 @@
 
 		reader.readAsText(file);
 	}
-
-	$: console.log('sheet', $sheet);
-
-	$: isSheetLoaded = Object.keys($sheet).length > 0;
 </script>
 
 <span>load json</span>
 <input type="file" accept=".json" on:change={loadJSON} />
 
-{#if isSheetLoaded}
-	<div class="flex flex-col gap-2 text-slate-800">
-		<Header />
+<div class="flex flex-col gap-2 text-slate-800">
+	<Header />
 
-		<div class="grid grid-cols-[auto_1fr_auto] gap-2">
-			<AbilityScores />
-			<div class="flex flex-col gap-2">
-				<Stats />
-				<Attacks />
-				<Spells />
-			</div>
-			<div>third column</div>
+	<div class="grid grid-cols-[auto_1fr] gap-2">
+		<AbilityScores />
+		<div class="flex flex-col gap-2">
+			<Stats />
+			<Attacks />
+			<Spells />
 		</div>
 	</div>
-{/if}
+</div>

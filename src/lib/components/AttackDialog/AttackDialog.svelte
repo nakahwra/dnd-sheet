@@ -4,7 +4,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import type { AbilityScoresKeys, AttackType } from '$lib/stores/sheet';
 
-	import { sheet } from '$lib/stores/sheet';
+	import { abilityScores } from '$lib/stores/sheet';
 
 	export let attack: AttackType;
 	export let isOpen: boolean = false;
@@ -13,7 +13,7 @@
 
 	let selected = { value: attack.ability, label: attack.ability };
 
-	const abilityOptions = (Object.keys($sheet.abilityScores) as AbilityScoresKeys[]).filter(
+	const abilityOptions = (Object.keys($abilityScores) as AbilityScoresKeys[]).filter(
 		(a) => a !== 'proficiency'
 	);
 

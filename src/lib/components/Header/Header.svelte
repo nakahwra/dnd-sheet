@@ -3,9 +3,7 @@
 	import InfoIcon from '~icons/material-symbols/info-outline';
 	import Input from './components/Input.svelte';
 
-	import { sheet } from '$lib/stores/sheet';
-
-	let { info } = $sheet;
+	import { info } from '$lib/stores/sheet';
 </script>
 
 <Card.Root>
@@ -17,11 +15,11 @@
 	</Card.Header>
 
 	<Card.Content class="grid grid-cols-3 gap-2">
-		<Input label="Character Name" value={info.characterName} />
-		<Input label="Class" value={info.class} />
-		<Input label="Race" value={info.race} />
-		<Input label="Background" value={info.background} />
-		<Input label="Alignment" value={info.alignment} />
-		<Input label="Player Name" value={info.playerName} />
+		<Input label="Character Name" value={$info.characterName} />
+		<Input label="Class" value={$info.class} />
+		<Input label="Race" value={$info.race} />
+		<Input label="Background" value={$info.background} />
+		<Input label="Alignment" value={$info.alignment} />
+		<Input label="Player Name" value={$info.playerName} />
 	</Card.Content>
 </Card.Root>
