@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { AbilityScores, Header, Stats } from '$lib';
-	import Attacks from '$lib/components/Attacks/Attacks.svelte';
+	import { AbilityScores, Attacks, Header, Stats } from '$lib';
+	import Spells from '$lib/components/Spells/Spells.svelte';
 
 	import { sheet } from '$lib/stores/sheet';
 
@@ -12,6 +12,7 @@
 			const data = JSON.parse(reader.result as string);
 
 			$sheet = data;
+			// $spells = data.spells;
 		};
 
 		reader.readAsText(file);
@@ -29,11 +30,12 @@
 	<div class="flex flex-col gap-2 text-slate-800">
 		<Header />
 
-		<div class="grid grid-cols-[auto_1fr_auto] gap-4">
+		<div class="grid grid-cols-[auto_1fr_auto] gap-2">
 			<AbilityScores />
 			<div class="flex flex-col gap-2">
 				<Stats />
 				<Attacks />
+				<Spells />
 			</div>
 			<div>third column</div>
 		</div>
