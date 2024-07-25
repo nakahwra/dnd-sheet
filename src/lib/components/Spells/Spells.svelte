@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 
 	import { Separator } from '$lib/components/ui/separator/index.js';
@@ -12,14 +11,24 @@
 	import SpellsIcon from '~icons/mdi/sparkles-outline';
 	import DeleteIcon from '~icons/mdi/trash-outline';
 
+	import { convertFeetToMeters } from '$lib/utils';
+	import SpellDescriptionDialog from './components/SpellDescriptionDialog.svelte';
 	import SpellsDialog from './components/SpellsDialog.svelte';
 
 	let isOpen = false;
+	let isDescriptionOpen = false;
+	let selectedSpellDescription: Spell | null = null;
+
 	const levels: SpellListKeys[] = Object.keys($spells).map(Number);
 
 	function handleDelete(spell: Spell) {
 		const level = spell.level as number;
 		$spells[level] = $spells[level].filter((s) => s.name !== spell.name);
+	}
+
+	function handleDescription(spell: Spell) {
+		selectedSpellDescription = spell;
+		isDescriptionOpen = true;
 	}
 
 	$: isSomeSpellSelected = levels.some((l) => $spells[l].length > 0);
@@ -55,9 +64,9 @@
 
 							<ul class="flex flex-col gap-4">
 								{#each $spells[l] as spell}
-									<li>
+									<button class="cursor-pointer" on:click={() => handleDescription(spell)}>
 										<div class="flex items-center justify-between">
-											<span class="font-semibold">{spell.name}</span>
+											<span class="cursor-pointer font-semibold">{spell.name}</span>
 											<Button class="p-2" variant="ghost" on:click={() => handleDelete(spell)}>
 												<DeleteIcon />
 											</Button>
@@ -72,15 +81,15 @@
 												<!-- convert ft to m, rounded down -->
 												<div class="flex items-center gap-1">
 													<Badge variant="secondary">
-														{#if spell.range === 'Self'}
+														{#if spell.range.includes('Self')}
 															{spell.range}
 														{:else}
-															{Math.floor(parseInt(spell.range) * 0.3048)} m
+															{convertFeetToMeters(parseInt(spell.range))} m
 														{/if}
 													</Badge>
 												</div>
 
-												{#if spell.S || spell.V || spell.M}
+												{#if spell.M !== undefined}
 													•
 													<div class="flex gap-1">
 														{#if spell.S}
@@ -89,7 +98,7 @@
 														{#if spell.V}
 															<Badge variant="secondary">V</Badge>
 														{/if}
-														{#if spell.M}
+														{#if spell.M !== undefined}
 															<Badge variant="secondary">M</Badge>
 														{/if}
 													</div>
@@ -108,7 +117,7 @@
 												</div>
 											{/if}
 										</div>
-									</li>
+									</button>
 								{/each}
 							</ul>
 						</li>
@@ -120,5 +129,9 @@
 		</ul>
 	</Card.Content>
 </Card.Root>
+
+{#if selectedSpellDescription !== null}
+	<SpellDescriptionDialog bind:isOpen={isDescriptionOpen} spell={selectedSpellDescription} />
+{/if}
 
 <SpellsDialog bind:isOpen />

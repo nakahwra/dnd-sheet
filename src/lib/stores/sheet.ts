@@ -51,6 +51,7 @@ export type Spell = {
 	school: string;
 	V: boolean;
 	S: boolean;
+	M: string;
 	casting_time: string;
 	concentration: boolean;
 	duration: string;

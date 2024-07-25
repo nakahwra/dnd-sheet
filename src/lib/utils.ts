@@ -58,3 +58,5 @@ export const flyAndScale = (
 export const getModifier = (abilityScore: number) => Math.floor((abilityScore - 10) / 2);
 
 export const getSignedModifier = (mod: number) => (mod >= 0 ? `+${mod}` : mod);
+
+export const convertFeetToMeters = (num: number) => Math.floor(num * 0.3048);
