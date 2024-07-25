@@ -85,15 +85,13 @@ const defaultSkill: SkillType = {
 
 const defaultAbilityScore: AbilityScoreType = {
 	score: 10,
-	skills: {
-		'saving throw': { ...defaultSkill }
-	}
+	skills: {}
 };
 
 const strength: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills,
+		'saving throw': { ...defaultSkill },
 		athletics: { ...defaultSkill }
 	}
 };
@@ -101,7 +99,7 @@ const strength: AbilityScoreType = {
 const dexterity: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills,
+		'saving throw': { ...defaultSkill },
 		acrobatics: { ...defaultSkill },
 		sleightOfHand: { ...defaultSkill },
 		stealth: { ...defaultSkill }
@@ -111,14 +109,14 @@ const dexterity: AbilityScoreType = {
 const constitution: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills
+		'saving throw': { ...defaultSkill }
 	}
 };
 
 const intelligence: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills,
+		'saving throw': { ...defaultSkill },
 		arcana: { ...defaultSkill },
 		history: { ...defaultSkill },
 		investigation: { ...defaultSkill },
@@ -130,7 +128,7 @@ const intelligence: AbilityScoreType = {
 const wisdom: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills,
+		'saving throw': { ...defaultSkill },
 		animalHandling: { ...defaultSkill },
 		insight: { ...defaultSkill },
 		medicine: { ...defaultSkill },
@@ -142,7 +140,7 @@ const wisdom: AbilityScoreType = {
 const charisma: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
-		...defaultAbilityScore.skills,
+		'saving throw': { ...defaultSkill },
 		deception: { ...defaultSkill },
 		intimidation: { ...defaultSkill },
 		performance: { ...defaultSkill },
