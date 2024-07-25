@@ -101,7 +101,7 @@ const dexterity: AbilityScoreType = {
 	skills: {
 		'saving throw': { ...defaultSkill },
 		acrobatics: { ...defaultSkill },
-		sleightOfHand: { ...defaultSkill },
+		'sleight of hand': { ...defaultSkill },
 		stealth: { ...defaultSkill }
 	}
 };
@@ -129,7 +129,7 @@ const wisdom: AbilityScoreType = {
 	...defaultAbilityScore,
 	skills: {
 		'saving throw': { ...defaultSkill },
-		animalHandling: { ...defaultSkill },
+		'animal handling': { ...defaultSkill },
 		insight: { ...defaultSkill },
 		medicine: { ...defaultSkill },
 		perception: { ...defaultSkill },
