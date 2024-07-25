@@ -33,7 +33,11 @@
 		<ul class="flex gap-4">
 			{#each statsKeys as s}
 				<li class="flex flex-col gap-2">
-					<StatInput stat={s} value={$stats[s]} type={s === 'hp' ? 'text' : 'number'}>
+					<StatInput
+						stat={s}
+						bind:value={$stats[s]}
+						type={s === 'hp' || s === 'initiative' ? 'text' : 'number'}
+					>
 						<svelte:component this={ICONS[s]()} />
 					</StatInput>
 				</li>

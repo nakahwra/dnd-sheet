@@ -170,9 +170,9 @@ export const abilityScores: Writable<AbilityScores> = writable({
 });
 
 export const stats: Writable<Stats> = writable({
-	ac: 10,
+	ac: 0,
 	initiative: 0,
-	speed: 30,
+	speed: 0,
 	hp: 0
 });
 
