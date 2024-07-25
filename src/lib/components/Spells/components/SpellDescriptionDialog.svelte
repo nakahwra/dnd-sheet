@@ -3,7 +3,7 @@
 	import DescriptionText from './DescriptionText.svelte';
 
 	import type { Spell } from '$lib/stores/sheet';
-	import { convertFeetToMeters } from '$lib/utils';
+	import { replaceFootToMeter } from '$lib/utils';
 
 	export let isOpen = false;
 	export let spell: Spell;
@@ -45,20 +45,12 @@
 
 			<DescriptionText label="Level" value={String(spell.level)} />
 			<DescriptionText label="Casting Time" value={spell.casting_time} />
-			<DescriptionText
-				label="Range"
-				value={`
-        ${
-					spell.range.includes('Self')
-						? spell.range
-						: convertFeetToMeters(parseInt(spell.range)) + 'm'
-				}`}
-			/>
+			<DescriptionText label="Range" value={replaceFootToMeter(spell.range)} />
 			<DescriptionText label="Components" value={getComponents(spell)} />
 			<DescriptionText label="Duration" value={spell.duration} />
 		</Dialog.Header>
 
-		{spell?.description}
+		{replaceFootToMeter(spell?.description)}
 
 		<DescriptionText label="Dice notations" value={diceNotation} />
 

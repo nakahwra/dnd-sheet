@@ -11,7 +11,7 @@
 	import SpellsIcon from '~icons/mdi/sparkles-outline';
 	import DeleteIcon from '~icons/mdi/trash-outline';
 
-	import { convertFeetToMeters } from '$lib/utils';
+	import { replaceFootToMeter } from '$lib/utils';
 	import SpellDescriptionDialog from './components/SpellDescriptionDialog.svelte';
 	import SpellsDialog from './components/SpellsDialog.svelte';
 
@@ -81,15 +81,17 @@
 												<!-- convert ft to m, rounded down -->
 												<div class="flex items-center gap-1">
 													<Badge variant="secondary">
-														{#if spell.range.includes('Self')}
-															{spell.range}
+														<!-- {#if ['Self', 'Touch', 'Special', 'Unlimited', 'Sight'].some( (s) => spell.range.includes(s) )}
+															{replaceFootToMeter(spell.range)}
 														{:else}
 															{convertFeetToMeters(parseInt(spell.range))} m
-														{/if}
+														{/if} -->
+
+														{replaceFootToMeter(spell.range)}
 													</Badge>
 												</div>
 
-												{#if spell.M !== undefined}
+												{#if spell.V || spell.S || spell.M !== undefined}
 													•
 													<div class="flex gap-1">
 														{#if spell.S}

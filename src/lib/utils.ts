@@ -59,4 +59,29 @@ export const getModifier = (abilityScore: number) => Math.floor((abilityScore - 
 
 export const getSignedModifier = (mod: number) => (mod >= 0 ? `+${mod}` : mod);
 
-export const convertFeetToMeters = (num: number) => Math.floor(num * 0.3048);
+// Round down in .5 increments
+// 5.1 -> 5
+// 5.4 -> 5
+// 5.5 -> 5.5
+// 5.7 -> 5.5
+// 5.999 -> 5.5
+export const convertFeetToMeters = (num: number) => Math.floor(num * 0.3048 * 2) / 2;
+
+// Given a string like that CONTAINS a distance notation in feet
+// replace the distance in feet with the distance in meters
+export const replaceFootToMeter = (str: string) => {
+	// regex to match a number followed by a space and words "foot" or "feet" or a number followed by "-foot" or "-feet"
+	const regex = /(\d+)(\s|-)(foot|feet)/;
+	const match = str.match(regex);
+
+	if (match) {
+		const feet = parseInt(match[1]);
+		const meters = convertFeetToMeters(feet);
+
+		console.log(`Conversions made: ${feet}ft to ${meters}m (raw: ${feet * 0.3048})`);
+
+		return str.replace(regex, `${meters}m`);
+	}
+
+	return str;
+};
