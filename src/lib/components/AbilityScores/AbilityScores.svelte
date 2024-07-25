@@ -7,13 +7,14 @@
 	import Ability from './components/Ability.svelte';
 
 	import { abilityScores, type AbilityScoresKeys, type SkillType } from '$lib/stores/sheet';
+	import { getModifier } from '$lib/utils';
 
 	let abilityTypes = Object.keys($abilityScores) as Array<AbilityScoresKeys>;
 	let edit = false;
 
 	function getTotalModifier(abilityScore: number, proficiencyBonus: number, skill: SkillType) {
 		const profBonusNumber = Number(proficiencyBonus);
-		let modifier = Math.floor((abilityScore - 10) / 2);
+		let modifier = getModifier(abilityScore);
 
 		if (skill.expertise) modifier += profBonusNumber;
 		if (skill.proficiency) modifier += profBonusNumber;
