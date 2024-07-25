@@ -17,6 +17,8 @@
 		reader.onload = function () {
 			const sheet = JSON.parse(reader.result as string);
 
+			console.log('Loaded sheet:', sheet);
+
 			info.set(sheet.info);
 			abilityScores.set(sheet.abilityScores);
 			stats.set(sheet.stats);

@@ -15,11 +15,11 @@
 	</Card.Header>
 
 	<Card.Content class="grid grid-cols-3 gap-2">
-		<Input label="Character Name" value={$info.characterName} />
-		<Input label="Class" value={$info.class} />
-		<Input label="Race" value={$info.race} />
-		<Input label="Background" value={$info.background} />
-		<Input label="Alignment" value={$info.alignment} />
-		<Input label="Player Name" value={$info.playerName} />
+		<Input label="Character Name" bind:value={$info.characterName} />
+		<Input label="Class" bind:value={$info.class} />
+		<Input label="Race" bind:value={$info.race} />
+		<Input label="Background" bind:value={$info.background} />
+		<Input label="Alignment" bind:value={$info.alignment} />
+		<Input label="Player Name" bind:value={$info.playerName} />
 	</Card.Content>
 </Card.Root>
