@@ -133,7 +133,9 @@
 </Card.Root>
 
 {#if selectedSpellDescription !== null}
-	<SpellDescriptionDialog bind:isOpen={isDescriptionOpen} spell={selectedSpellDescription} />
+	{#key selectedSpellDescription}
+		<SpellDescriptionDialog bind:isOpen={isDescriptionOpen} spell={selectedSpellDescription} />
+	{/key}
 {/if}
 
 <SpellsDialog bind:isOpen />

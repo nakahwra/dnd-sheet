@@ -52,8 +52,12 @@
 
 		{replaceFootToMeter(spell?.description)}
 
-		<DescriptionText label="Dice notations" value={diceNotation} />
+		{#if diceNotation}
+			<DescriptionText label="Dice notations" value={diceNotation} />
+		{/if}
 
-		<DescriptionText label="Saving Throws" value={savingThrows} />
+		{#if savingThrows}
+			<DescriptionText label="Saving Throws" value={savingThrows} />
+		{/if}
 	</Dialog.Content>
 </Dialog.Root>

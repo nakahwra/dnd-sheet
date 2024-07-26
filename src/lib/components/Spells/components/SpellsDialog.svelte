@@ -32,6 +32,8 @@
 
 		$spells[level] = [...$spells[level], selectedSpell];
 	}
+
+	$: if (!isOpen) selectedSpell = null;
 </script>
 
 <Dialog.Root bind:open={isOpen}>
