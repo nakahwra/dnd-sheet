@@ -11,6 +11,7 @@
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
 
 	import { abilityScores, attacks, info, spells, stats } from '$lib/stores/sheet';
+	import { formatDate } from '$lib/utils';
 
 	let fileInput: HTMLInputElement;
 
@@ -20,8 +21,6 @@
 
 		reader.onload = function () {
 			const sheet = JSON.parse(reader.result as string);
-
-			console.log('Loaded sheet:', sheet);
 
 			info.set(sheet.info);
 			abilityScores.set(sheet.abilityScores);
@@ -42,13 +41,18 @@
 			spells: $spells
 		};
 
+		const characterName = $info.characterName.trim().toLowerCase();
+		const playerName = $info.playerName.trim().toLowerCase();
+		const date = formatDate(new Date());
+		const fileName = `${date}${playerName ? '-' + playerName : ''}${characterName ? '-' + characterName : ''}`;
+
 		const data = JSON.stringify(sheet, null, 2);
 		const blob = new Blob([data], { type: 'application/json' });
 		const url = URL.createObjectURL(blob);
 
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = 'sheet.json';
+		a.download = `${fileName}.json`;
 		a.click();
 	}
 </script>
