@@ -54,19 +54,19 @@
 			bind:value={editingAttack.damage}
 		/>
 
-		<Dialog.Footer>
-			<Dialog.Close>
-				<Button variant="outline">Cancel</Button>
-			</Dialog.Close>
-
-			<Dialog.Close>
+		<Dialog.Footer class="flex-col !justify-start gap-4 sm:flex-row sm:gap-2">
+			<Dialog.Close class="w-full sm:w-[50%]">
 				<Button
+					class="w-full"
 					variant="default"
 					disabled={!editingAttack.name || !editingAttack.ability || !editingAttack.damage}
 					on:click={handleSave}
 				>
 					Save
 				</Button>
+			</Dialog.Close>
+			<Dialog.Close class="w-full sm:w-[50%]">
+				<Button class="w-full" variant="outline">Cancel</Button>
 			</Dialog.Close>
 		</Dialog.Footer>
 	</Dialog.Content>

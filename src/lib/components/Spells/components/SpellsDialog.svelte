@@ -44,7 +44,11 @@
 
 		<Popover.Root bind:open>
 			<Popover.Trigger>
-				<Button class="flex w-full max-w-[500px] justify-start" variant="outline" role="combobox">
+				<Button
+					class="flex w-full justify-start sm:max-w-[500px]"
+					variant="outline"
+					role="combobox"
+				>
 					{#if selectedSpell}
 						{selectedSpell.name}
 					{:else}
@@ -52,11 +56,11 @@
 					{/if}
 				</Button>
 			</Popover.Trigger>
-			<Popover.Content class="w-full max-w-[460px] p-0">
+			<Popover.Content class="w-full max-w-[305px] p-0 sm:max-w-[460px]">
 				<Command.Root>
 					<Command.Input placeholder="Search spell..." />
 					<Command.Empty>No spell found.</Command.Empty>
-					<Command.Group class="max-h-72 overflow-y-auto">
+					<Command.Group class="max-h-36 overflow-y-auto sm:max-h-72">
 						{#each SPELLS as s}
 							<Command.Item class="flex gap-2" value={String(s.name)} onSelect={handleSelect}>
 								{s.name}
@@ -70,13 +74,14 @@
 			</Popover.Content>
 		</Popover.Root>
 
-		<Dialog.Footer>
-			<Dialog.Close>
-				<Button variant="outline">Cancel</Button>
+		<Dialog.Footer class="flex-col !justify-start gap-4 sm:flex-row sm:gap-2">
+			<Dialog.Close class="w-full sm:w-[50%]">
+				<Button class="w-full" variant="default" disabled={!selectedSpell} on:click={handleSave}>
+					Save
+				</Button>
 			</Dialog.Close>
-
-			<Dialog.Close>
-				<Button variant="default" disabled={!selectedSpell} on:click={handleSave}>Save</Button>
+			<Dialog.Close class="w-full sm:w-[50%]">
+				<Button class="w-full" variant="outline">Cancel</Button>
 			</Dialog.Close>
 		</Dialog.Footer>
 	</Dialog.Content>
