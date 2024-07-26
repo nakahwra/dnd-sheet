@@ -14,7 +14,7 @@
 		</Card.Title>
 	</Card.Header>
 
-	<Card.Content class="grid grid-cols-3 gap-2">
+	<Card.Content class="xs:grid-cols-3 grid grid-cols-1 gap-2">
 		<Input label="Character Name" bind:value={$info.characterName} />
 		<Input label="Class" bind:value={$info.class} />
 		<Input label="Race" bind:value={$info.race} />
