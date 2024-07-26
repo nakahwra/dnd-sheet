@@ -56,11 +56,11 @@
 <ModeWatcher />
 
 <header
-	class="sticky top-0 flex justify-between border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
+	class="xs:flex-row sticky top-0 flex flex-col items-center justify-between gap-2 border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
 >
-	<h1 class="text-2xl font-bold">D&D Sheet</h1>
+	<h1 class="xs:text-2xl font-bold">D&D Sheet</h1>
 	<div class="flex gap-2">
-		<input class="invisible" type="file" bind:this={fileInput} on:change={handleFileSelect} />
+		<input class="hidden" type="file" bind:this={fileInput} on:change={handleFileSelect} />
 		<Button class="relative flex gap-2 p-2" variant="outline" on:click={toggleMode}>
 			<LightModeIcon class="absolute dark:scale-0" />
 			<DarkModeIcon class="scale-0 dark:scale-100" />
