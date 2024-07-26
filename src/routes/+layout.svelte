@@ -56,7 +56,7 @@
 <ModeWatcher />
 
 <header
-	class="xs:flex-row sticky top-0 flex flex-col items-center justify-between gap-2 border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
+	class="xs:flex-row sticky top-0 z-[1] flex flex-col items-center justify-between gap-2 border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
 >
 	<h1 class="xs:text-2xl font-bold">D&D Sheet</h1>
 	<div class="flex gap-2">

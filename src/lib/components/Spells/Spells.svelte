@@ -72,7 +72,9 @@
 											</Button>
 										</div>
 
-										<div class="flex items-center justify-between text-zinc-300">
+										<div
+											class="xs:gap-0 xs:items-center xs:flex-row flex flex-col justify-between gap-2 text-zinc-300"
+										>
 											<div class="flex gap-2">
 												<div class="flex items-center gap-1">
 													<Badge variant="secondary">{spell.casting_time}</Badge>
