@@ -59,13 +59,8 @@ export const getModifier = (abilityScore: number) => Math.floor((abilityScore - 
 
 export const getSignedModifier = (mod: number) => (mod >= 0 ? `+${mod}` : mod);
 
-// Round down in .5 increments
-// 5.1 -> 5
-// 5.4 -> 5
-// 5.5 -> 5.5
-// 5.7 -> 5.5
-// 5.999 -> 5.5
-export const convertFeetToMeters = (num: number) => Math.floor(num * 0.3048 * 2) / 2;
+// Round down up to 1 decimal place
+export const convertFeetToMeters = (num: number) => Math.floor(num * 0.3048 * 10) / 10;
 
 // Given a string like that CONTAINS a distance notation in feet
 // replace the distance in feet with the distance in meters
