@@ -3,8 +3,12 @@
 
 	import { Button } from '$lib/components/ui/button';
 
+	import DarkModeIcon from '~icons/material-symbols/dark-mode';
+	import LightModeIcon from '~icons/material-symbols/light-mode';
 	import SaveIcon from '~icons/material-symbols/save-outline';
 	import LoadIcon from '~icons/mdi/file-outline';
+
+	import { ModeWatcher, toggleMode } from 'mode-watcher';
 
 	import { abilityScores, attacks, info, spells, stats } from '$lib/stores/sheet';
 
@@ -49,11 +53,19 @@
 	}
 </script>
 
-<header class="sticky top-0 flex justify-between border-b-2 bg-white p-4 drop-shadow-sm">
+<ModeWatcher />
+
+<header
+	class="sticky top-0 flex justify-between border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
+>
 	<h1 class="text-2xl font-bold">D&D Sheet</h1>
 	<div class="flex gap-2">
 		<input class="invisible" type="file" bind:this={fileInput} on:change={handleFileSelect} />
-		<Button variant="outline" class="flex gap-2" on:click={() => fileInput.click()}>
+		<Button class="relative flex gap-2 p-2" variant="outline" on:click={toggleMode}>
+			<LightModeIcon class="absolute dark:scale-0" />
+			<DarkModeIcon class="scale-0 dark:scale-100" />
+		</Button>
+		<Button class="flex gap-2" variant="outline" on:click={() => fileInput.click()}>
 			<LoadIcon />
 			Load Sheet
 		</Button>

@@ -3,7 +3,7 @@
 	import Spells from '$lib/components/Spells/Spells.svelte';
 </script>
 
-<div class="mt-2 flex flex-col gap-2 text-slate-800">
+<div class="mt-2 flex flex-col gap-2 bg-inherit text-zinc-800">
 	<Header />
 
 	<div class="grid grid-cols-[auto_1fr] gap-2">

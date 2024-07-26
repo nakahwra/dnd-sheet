@@ -72,7 +72,7 @@
 											</Button>
 										</div>
 
-										<div class="flex items-center justify-between text-slate-300">
+										<div class="flex items-center justify-between text-zinc-300">
 											<div class="flex gap-2">
 												<div class="flex items-center gap-1">
 													<Badge variant="secondary">{spell.casting_time}</Badge>
@@ -110,11 +110,11 @@
 											{#if spell.concentration || spell.ritual}
 												<div class="flex gap-2">
 													{#if spell.concentration}
-														<Badge class="text-slate-500" variant="outline">Concentration</Badge>
+														<Badge class="text-zinc-500" variant="outline">Concentration</Badge>
 													{/if}
 
 													{#if spell.ritual}
-														<Badge class="text-slate-500" variant="outline">Ritual</Badge>
+														<Badge class="text-zinc-500" variant="outline">Ritual</Badge>
 													{/if}
 												</div>
 											{/if}
