@@ -23,7 +23,7 @@
 	}
 </script>
 
-<Card.Root class="w-[310px]">
+<Card.Root class="md:w-[310px]">
 	<Card.Header class="flex flex-row items-start justify-between gap-4">
 		<Card.Title class="flex flex-row gap-2">
 			<AbilityScoreIcon />
@@ -34,45 +34,48 @@
 
 	<Card.Content>
 		<ul class="flex flex-col gap-4">
-			{#each abilityTypes as t}
-				{#if t === 'proficiency'}
-					<li>
-						<Ability abilityType="prof." bind:value={$abilityScores.proficiency} />
-					</li>
-				{:else}
-					<li class="flex gap-4">
-						<Ability abilityType={t.slice(0, 3)} bind:value={$abilityScores[t].score} />
+			<li>
+				<Ability abilityType="prof." bind:value={$abilityScores.proficiency} />
+			</li>
+			<div
+				class="xs:grid-cols-2 xs:gap-y-10 grid w-full flex-wrap justify-between gap-4 gap-x-2 md:flex md:gap-4"
+			>
+				{#each abilityTypes as t}
+					{#if t !== 'proficiency'}
+						<li class="flex gap-4">
+							<Ability abilityType={t.slice(0, 3)} bind:value={$abilityScores[t].score} />
 
-						<div class="mt-4 flex flex-col justify-center">
-							{#each Object.keys($abilityScores[t].skills) as s}
-								<div class="flex items-center gap-2">
-									{#if edit}
-										<Checkbox
-											class={`${edit ? 'visible' : 'invisible'} `}
-											bind:checked={$abilityScores[t].skills[s].proficiency}
-										/>
-										<Checkbox
-											class={`${edit ? 'visible' : 'invisible'} `}
-											bind:checked={$abilityScores[t].skills[s].expertise}
-											disabled={!$abilityScores[t].skills[s].proficiency}
-										/>
-									{/if}
+							<div class="mt-4 flex flex-col md:justify-center">
+								{#each Object.keys($abilityScores[t].skills) as s}
+									<div class="flex items-center gap-2">
+										{#if edit}
+											<Checkbox
+												class={`${edit ? 'visible' : 'invisible'} `}
+												bind:checked={$abilityScores[t].skills[s].proficiency}
+											/>
+											<Checkbox
+												class={`${edit ? 'visible' : 'invisible'} `}
+												bind:checked={$abilityScores[t].skills[s].expertise}
+												disabled={!$abilityScores[t].skills[s].proficiency}
+											/>
+										{/if}
 
-									<span
-										>{getTotalModifier(
-											$abilityScores[t].score,
-											$abilityScores['proficiency'],
-											$abilityScores[t].skills[s]
-										)}</span
-									>
+										<span
+											>{getTotalModifier(
+												$abilityScores[t].score,
+												$abilityScores['proficiency'],
+												$abilityScores[t].skills[s]
+											)}</span
+										>
 
-									<span>{s}</span>
-								</div>
-							{/each}
-						</div>
-					</li>
-				{/if}
-			{/each}
+										<span>{s}</span>
+									</div>
+								{/each}
+							</div>
+						</li>
+					{/if}
+				{/each}
+			</div>
 		</ul>
 	</Card.Content>
 </Card.Root>
