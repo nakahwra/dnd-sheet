@@ -6,18 +6,21 @@
 
 	import { abilityScores } from '$lib/stores/sheet';
 
-	export let attack: AttackType;
+	export let editingAttack: AttackType;
 	export let isOpen: boolean = false;
 	export let onClose: () => void;
 	export let onSave: () => void;
 
-	let selected = { value: attack.ability, label: attack.ability };
+	let selected = { value: editingAttack.ability, label: editingAttack.ability };
 
 	const abilityOptions = (Object.keys($abilityScores) as AbilityScoresKeys[]).filter(
 		(a) => a !== 'proficiency'
 	);
 
-	$: if (attack.ability !== selected.value) attack.ability = selected.value;
+	function handleSave() {
+		editingAttack.ability = selected.value;
+		onSave();
+	}
 </script>
 
 <Dialog.Root open={isOpen} onOpenChange={onClose}>
@@ -26,17 +29,17 @@
 			<Dialog.Title>Attack Editor</Dialog.Title>
 		</Dialog.Header>
 
-		<Input id="atk-name-input" label={'Name'} type="text" bind:value={attack.name} />
+		<Input id="atk-name-input" label={'Name'} type="text" bind:value={editingAttack.name} />
 
 		<div class="flex gap-8">
 			<Input
-				id={`${attack.id}-prof`}
+				id={`${editingAttack.id}-prof`}
 				label="Proficiency"
 				type="checkbox"
-				bind:value={attack.proficiency}
+				bind:value={editingAttack.proficiency}
 			/>
 			<Input
-				id={attack.ability}
+				id={editingAttack.ability}
 				label={'Modifier'}
 				type="select"
 				options={abilityOptions}
@@ -44,7 +47,12 @@
 			/>
 		</div>
 
-		<Input id={attack.damage} label={'Damage'} type="text" bind:value={attack.damage} />
+		<Input
+			id={editingAttack.damage}
+			label={'Damage'}
+			type="text"
+			bind:value={editingAttack.damage}
+		/>
 
 		<Dialog.Footer>
 			<Dialog.Close>
@@ -54,8 +62,8 @@
 			<Dialog.Close>
 				<Button
 					variant="default"
-					disabled={!attack.name || !attack.ability || !attack.damage}
-					on:click={onSave}
+					disabled={!editingAttack.name || !editingAttack.ability || !editingAttack.damage}
+					on:click={handleSave}
 				>
 					Save
 				</Button>

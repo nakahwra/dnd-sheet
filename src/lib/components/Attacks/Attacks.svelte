@@ -80,4 +80,6 @@
 	</Card.Content>
 </Card.Root>
 
-<AttackDialog bind:attack={editingAttack} {isOpen} onClose={handleClose} onSave={handleSave} />
+{#key editingAttack}
+	<AttackDialog {editingAttack} {isOpen} onClose={handleClose} onSave={handleSave} />
+{/key}

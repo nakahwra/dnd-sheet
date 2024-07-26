@@ -57,10 +57,10 @@
 					<Command.Group class="max-h-72 overflow-y-auto">
 						{#each SPELLS as s}
 							<Command.Item class="flex gap-2" value={String(s.name)} onSelect={handleSelect}>
+								{s.name}
 								{#if selectedSpell && selectedSpell.name === s.name}
 									<SelectedIcon />
 								{/if}
-								{s.name}
 							</Command.Item>
 						{/each}
 					</Command.Group>
