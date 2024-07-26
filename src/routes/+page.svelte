@@ -6,7 +6,7 @@
 <div class="my-2 flex flex-col gap-2 bg-inherit text-zinc-800">
 	<Info />
 
-	<div class="xs:grid gap-2 md:grid-cols-[auto_1fr]">
+	<div class="xs:grid flex flex-col gap-2 md:grid-cols-[auto_1fr]">
 		<AbilityScores />
 		<div class="flex flex-col gap-2">
 			<Stats />
