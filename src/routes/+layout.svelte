@@ -10,7 +10,7 @@
 
 	import { ModeWatcher, toggleMode } from 'mode-watcher';
 
-	import { abilityScores, attacks, info, spells, stats } from '$lib/stores/sheet';
+	import { abilityScores, attacks, info, spellcastingInfo, stats } from '$lib/stores/sheet';
 	import { formatDate } from '$lib/utils';
 
 	let fileInput: HTMLInputElement;
@@ -26,7 +26,7 @@
 			abilityScores.set(sheet.abilityScores);
 			stats.set(sheet.stats);
 			attacks.set(sheet.attacks);
-			spells.set(sheet.spells);
+			spellcastingInfo.set(sheet.spellcastingInfo);
 		};
 
 		reader.readAsText(file);
@@ -38,7 +38,7 @@
 			abilityScores: $abilityScores,
 			stats: $stats,
 			attacks: $attacks,
-			spells: $spells
+			spellcastingInfo: $spellcastingInfo
 		};
 
 		const characterName = $info.characterName.trim().toLowerCase();
@@ -60,9 +60,9 @@
 <ModeWatcher />
 
 <header
-	class="xs:flex-row sticky top-0 z-[1] flex flex-col items-center justify-between gap-2 border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950"
+	class="sticky top-0 z-[1] flex flex-col items-center justify-between gap-2 border-b-2 bg-white p-4 drop-shadow-sm dark:bg-zinc-950 xs:flex-row"
 >
-	<h1 class="xs:text-2xl font-bold">D&D Sheet</h1>
+	<h1 class="font-bold xs:text-2xl">D&D Sheet</h1>
 	<div class="flex gap-2">
 		<input class="hidden" type="file" bind:this={fileInput} on:change={handleFileSelect} />
 		<Button class="relative flex gap-2 p-2" variant="outline" on:click={toggleMode}>

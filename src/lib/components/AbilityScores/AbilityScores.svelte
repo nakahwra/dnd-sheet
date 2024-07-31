@@ -38,7 +38,7 @@
 				<Ability abilityType="prof." bind:value={$abilityScores.proficiency} />
 			</li>
 			<div
-				class="xs:grid-cols-2 xs:gap-y-10 grid w-full flex-wrap justify-between gap-4 gap-x-2 md:flex md:gap-4"
+				class="grid w-full flex-wrap justify-between gap-4 gap-x-2 xs:grid-cols-2 xs:gap-y-10 md:flex md:gap-4"
 			>
 				{#each abilityTypes as t}
 					{#if t !== 'proficiency'}
