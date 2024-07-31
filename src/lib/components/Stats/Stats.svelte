@@ -18,7 +18,7 @@
 
 	type StatKeys = keyof typeof $stats;
 
-	let editMode = true;
+	let editMode = false;
 	let ac: number, acMod1: number, acMod2: number;
 	let initiative: number, initMod: number;
 
@@ -36,8 +36,6 @@
 		const ability1 = $stats.ac.firstAbility;
 		const ability2 = $stats.ac.secondAbility;
 
-		console.log('ab:', ability1, ability2);
-
 		if (ability1) {
 			acMod1 = getModifier(($abilityScores[ability1] as AbilityScoreType).score);
 			sum += acMod1;
@@ -47,8 +45,6 @@
 			acMod2 = getModifier(($abilityScores[ability2] as AbilityScoreType).score);
 			sum += acMod2;
 		}
-
-		console.log('sum:', sum);
 
 		ac = sum;
 	}

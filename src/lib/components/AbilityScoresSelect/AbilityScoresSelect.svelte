@@ -10,8 +10,6 @@
 		selected: Selected<AbilityScoresKeys | undefined> | undefined
 	) => void;
 
-	$: console.log('ability', ability);
-
 	$: selected = {
 		value: ability,
 		label: ability?.toUpperCase()
