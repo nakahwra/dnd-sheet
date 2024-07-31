@@ -73,7 +73,7 @@
 		<!-- Armor Class -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.ac()} />
+				<svelte:component this={ICONS.ac()} class="mb-2" />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Base AC" type="number" bind:value={$stats.ac.base} />
@@ -113,7 +113,7 @@
 		<!-- Initiative -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.initiative()} />
+				<svelte:component this={ICONS.initiative()} class="mb-2" />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatView label="Base Initiative" value={`DEX: ${getSignedModifier(initMod)}`} />
@@ -130,7 +130,7 @@
 		<!-- Speed -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.speed()} />
+				<svelte:component this={ICONS.speed()} class="mb-2" />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Base speed" type="number" bind:value={$stats.speed.base} />
@@ -147,7 +147,7 @@
 		<!-- Hit Points -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.hp()} />
+				<svelte:component this={ICONS.hp()} class="mb-2" />
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Max hp" type="number" bind:value={$stats.hp.max} />
 				</div>
