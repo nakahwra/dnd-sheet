@@ -8,7 +8,7 @@
 </script>
 
 <div class="w-full space-y-2">
-	<Label class="flex gap-1 font-semibold" for="ac">
+	<Label class="flex h-[17px] gap-1 font-semibold" for="ac">
 		<slot />
 		{stat.toUpperCase()}
 	</Label>
