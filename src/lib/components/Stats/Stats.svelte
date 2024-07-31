@@ -57,6 +57,9 @@
 		initMod = getModifier($abilityScores.dexterity.score);
 		initiative = initMod + Number($stats.initiative.bonus);
 	}
+
+	// Speed
+	$: speed = Number($stats.speed.base) + Number($stats.speed.bonus);
 </script>
 
 <Card.Root>
@@ -113,6 +116,19 @@
 		{:else}
 			<StatView label="Initiative" value={initiative}>
 				<svelte:component this={ICONS.initiative()} />
+			</StatView>
+		{/if}
+
+		<!-- Speed -->
+		{#if editMode}
+			<div class="flex w-full flex-col gap-4 lg:flex-row">
+				<StatInput stat="Base speed" type="number" bind:value={$stats.speed.base} />
+				<StatInput stat="Other bonuses" type="number" bind:value={$stats.speed.bonus} />
+			</div>
+			<Separator class="my-6" />
+		{:else}
+			<StatView label="Speed" value={speed}>
+				<svelte:component this={ICONS.speed()} />
 			</StatView>
 		{/if}
 	</Card.Content>
