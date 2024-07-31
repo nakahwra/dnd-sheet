@@ -8,9 +8,9 @@
 </script>
 
 <div class="w-full space-y-2">
-	<Label class="flex gap-1 font-bold" for="ac">
+	<Label class="flex gap-1 font-semibold" for="ac">
 		<slot />
 		{stat.toUpperCase()}
 	</Label>
-	<Input class="h-fit pb-2 pt-3" id={stat} {type} bind:value />
+	<Input class="h-[42px]" id={stat} {type} bind:value />
 </div>
