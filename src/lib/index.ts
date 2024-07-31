@@ -1,5 +1,6 @@
 // place files you want to import through the `$lib` alias in this folder.
 export { default as AbilityScores } from '$lib/components/AbilityScores/AbilityScores.svelte';
+export { default as AbilityScoresSelect } from '$lib/components/AbilityScoresSelect/AbilityScoresSelect.svelte';
 export { default as AttackDialog } from '$lib/components/AttackDialog/AttackDialog.svelte';
 export { default as Attacks } from '$lib/components/Attacks/Attacks.svelte';
 export { default as Info } from '$lib/components/Info/Info.svelte';

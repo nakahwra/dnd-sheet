@@ -31,10 +31,24 @@ interface AbilityScores {
 }
 
 interface Stats {
-	ac: number;
-	initiative: number;
-	speed: number;
-	hp: number;
+	ac: {
+		base: number;
+		firstAbility?: AbilityScoresKeys;
+		secondAbility?: AbilityScoresKeys;
+		bonus: number;
+	};
+	initiative: {
+		bonus: number;
+	};
+	speed: {
+		base: number;
+		bonus: number;
+	};
+	hp: {
+		max: number;
+		current: number;
+		temp: number;
+	};
 }
 
 export type AttackType = {
@@ -182,10 +196,24 @@ export const abilityScores: Writable<AbilityScores> = writable({
 });
 
 export const stats: Writable<Stats> = writable({
-	ac: 0,
-	initiative: 0,
-	speed: 0,
-	hp: 0
+	ac: {
+		base: 10,
+		firstAbility: undefined,
+		secondAbility: undefined,
+		bonus: 0
+	},
+	initiative: {
+		bonus: 0
+	},
+	speed: {
+		base: 10,
+		bonus: 0
+	},
+	hp: {
+		max: 0,
+		current: 0,
+		temp: 0
+	}
 });
 
 export const attacks: Writable<AttackType[]> = writable([]);

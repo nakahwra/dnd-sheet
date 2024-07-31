@@ -21,7 +21,7 @@
 
 	{#if type === 'select' && selected && options?.length}
 		<Select.Root bind:selected>
-			<Select.Trigger class="flex w-fit">
+			<Select.Trigger class="flex w-fit bg-zinc-100 dark:bg-zinc-900">
 				{selected.label}
 			</Select.Trigger>
 
@@ -34,6 +34,6 @@
 	{:else if type === 'checkbox' && typeof value === 'boolean'}
 		<Checkbox {id} bind:checked={value} />
 	{:else}
-		<Input {id} {type} bind:value />
+		<Input class="bg-zinc-100 dark:bg-zinc-900" {id} {type} bind:value />
 	{/if}
 </div>
