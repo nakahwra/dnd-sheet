@@ -62,10 +62,17 @@ export type Spell = {
 	classes: string;
 	book: string;
 	id: number;
+	prepared?: boolean;
 };
 
 export type SpellList = {
-	[key: number]: Spell[];
+	[key: number]: {
+		slots: {
+			max: number;
+			used: number;
+		};
+		spells: Spell[];
+	};
 };
 
 interface Sheet {
@@ -77,6 +84,11 @@ interface Sheet {
 
 export type AbilityScoresKeys = keyof AbilityScores;
 export type SpellListKeys = keyof SpellList;
+
+interface SpellcastingInfo {
+	spellAbility: AbilityScoresKeys;
+	spellList: SpellList;
+}
 
 const defaultSkill: SkillType = {
 	proficiency: false,
@@ -178,15 +190,28 @@ export const stats: Writable<Stats> = writable({
 
 export const attacks: Writable<AttackType[]> = writable([]);
 
-export const spells: Writable<SpellList> = writable({
-	0: [],
-	1: [],
-	2: [],
-	3: [],
-	4: [],
-	5: [],
-	6: [],
-	7: [],
-	8: [],
-	9: []
+const defaultSpellLevel = {
+	slots: {
+		max: 0,
+		used: 0
+	},
+	spells: []
+};
+
+export const spellList: SpellList = {
+	0: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	1: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	2: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	3: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	4: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	5: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	6: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	7: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	8: { ...defaultSpellLevel, slots: { max: 0, used: 0 } },
+	9: { ...defaultSpellLevel, slots: { max: 0, used: 0 } }
+};
+
+export const spellcastingInfo: Writable<SpellcastingInfo> = writable({
+	spellAbility: 'intelligence',
+	spellList: { ...spellList }
 });

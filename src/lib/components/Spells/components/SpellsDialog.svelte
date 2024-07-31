@@ -2,24 +2,28 @@
 	import spellsList from '$lib/assets/spells.json';
 
 	import Button from '$lib/components/ui/button/button.svelte';
+	import { Label } from '$lib/components/ui/label';
+
+	import { Checkbox } from '$lib/components/ui/checkbox';
 	import * as Command from '$lib/components/ui/command';
 	import * as Dialog from '$lib/components/ui/dialog';
 	import * as Popover from '$lib/components/ui/popover';
 
 	import SelectedIcon from '~icons/mdi/check';
 
-	import { spells, type Spell } from '$lib/stores/sheet';
+	import { spellcastingInfo, type Spell } from '$lib/stores/sheet';
 
 	export let isOpen = false;
 
 	let selectedSpell: Spell | null = null;
 	let open = false;
+	let prepared = true;
 
 	const SPELLS: Spell[] = spellsList;
 
 	function handleSelect(spell: string) {
 		const selected = SPELLS.find((s) => s.name === spell);
-		selectedSpell = selected as Spell;
+		selectedSpell = { ...selected } as Spell;
 		open = false;
 	}
 
@@ -28,9 +32,13 @@
 
 		const level = selectedSpell.level;
 
-		if ($spells[level].some((s) => s.name === selectedSpell?.name)) return;
+		if ($spellcastingInfo.spellList[level].spells.some((s) => s.name === selectedSpell?.name))
+			return;
 
-		$spells[level] = [...$spells[level], selectedSpell];
+		$spellcastingInfo.spellList[level].spells = [
+			...$spellcastingInfo.spellList[level].spells,
+			{ ...selectedSpell, prepared }
+		];
 	}
 
 	$: if (!isOpen) selectedSpell = null;
@@ -41,6 +49,11 @@
 		<Dialog.Header>
 			<Dialog.Title>Add new spell</Dialog.Title>
 		</Dialog.Header>
+
+		<div class="flex flex-col gap-2">
+			<Label for="prepared">Prepared:</Label>
+			<Checkbox id="prepared" bind:checked={prepared} />
+		</div>
 
 		<Popover.Root bind:open>
 			<Popover.Trigger>
