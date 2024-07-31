@@ -7,8 +7,10 @@
 	export let type: 'number' | 'text';
 </script>
 
-<Label class="flex gap-1 font-bold" for="ac">
-	<slot />
-	{stat.toUpperCase()}
-</Label>
-<Input id={stat} {type} bind:value />
+<div class="w-full space-y-2">
+	<Label class="flex gap-1 font-bold" for="ac">
+		<slot />
+		{stat.toUpperCase()}
+	</Label>
+	<Input class="h-fit pb-2 pt-3" id={stat} {type} bind:value />
+</div>
