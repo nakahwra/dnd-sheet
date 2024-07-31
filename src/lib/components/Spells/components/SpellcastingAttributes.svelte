@@ -28,7 +28,7 @@
 	};
 </script>
 
-<div class="flex gap-6">
+<div class="gap-6 xs:flex">
 	<div class="flex flex-col gap-2">
 		<span class="font-semibold">Ability</span>
 		{#if editMode}
