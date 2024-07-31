@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
+	import { Label } from '$lib/components/ui/label';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Switch } from '$lib/components/ui/switch';
 
@@ -17,7 +18,7 @@
 
 	type StatKeys = keyof typeof $stats;
 
-	let editMode = false;
+	let editMode = true;
 	let ac: number, acMod1: number, acMod2: number;
 	let initiative: number, initMod: number;
 
@@ -76,12 +77,12 @@
 		<!-- Armor Class -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.ac()} class="mb-2" />
+				<svelte:component this={ICONS.ac()} />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Base AC" type="number" bind:value={$stats.ac.base} />
-					<div class="flex flex-col space-y-2">
-						<span class="text-sm font-semibold leading-none">ABILITY 1</span>
+					<div class="flex flex-col justify-between space-y-2">
+						<Label class="text-sm font-semibold leading-none">ABILITY 1</Label>
 						<div class="flex items-center space-x-1">
 							<AbilityScoresSelect
 								ability={$stats.ac.firstAbility}
@@ -91,8 +92,8 @@
 							<span>{acMod1 ? getSignedModifier(acMod1) : '+0'}</span>
 						</div>
 					</div>
-					<div class="flex flex-col space-y-2">
-						<span class="text-sm font-semibold leading-none">ABILITY 2</span>
+					<div class="flex flex-col justify-between space-y-2">
+						<Label class="text-sm font-semibold leading-none">ABILITY 2</Label>
 						<div class="flex items-center space-x-1">
 							<AbilityScoresSelect
 								ability={$stats.ac.secondAbility}
@@ -116,7 +117,7 @@
 		<!-- Initiative -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.initiative()} class="mb-2" />
+				<svelte:component this={ICONS.initiative()} />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatView label="Base Initiative" value={`DEX: ${getSignedModifier(initMod)}`} />
@@ -133,7 +134,7 @@
 		<!-- Speed -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.speed()} class="mb-2" />
+				<svelte:component this={ICONS.speed()} />
 
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Base speed" type="number" bind:value={$stats.speed.base} />
@@ -150,7 +151,7 @@
 		<!-- Hit Points -->
 		{#if editMode}
 			<div>
-				<svelte:component this={ICONS.hp()} class="mb-2" />
+				<svelte:component this={ICONS.hp()} />
 				<div class="flex w-full flex-col gap-4 lg:flex-row">
 					<StatInput stat="Max hp" type="number" bind:value={$stats.hp.max} />
 				</div>

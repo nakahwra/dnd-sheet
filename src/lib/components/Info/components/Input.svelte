@@ -8,5 +8,5 @@
 
 <div class="flex flex-col gap-2">
 	<Label class="font-bold" for="character-name">{label}</Label>
-	<Input type="text" bind:value />
+	<Input class="bg-zinc-100 dark:bg-zinc-900" type="text" bind:value />
 </div>

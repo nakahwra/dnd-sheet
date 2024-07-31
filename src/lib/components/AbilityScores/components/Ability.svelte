@@ -19,5 +19,10 @@
 			{/if}
 		</span>
 	</Label>
-	<Input class="max-w-[50px] text-center" type="number" id={abilityType} bind:value />
+	<Input
+		class="max-w-[50px] bg-zinc-100 text-center dark:bg-zinc-900"
+		type="number"
+		id={abilityType}
+		bind:value
+	/>
 </div>

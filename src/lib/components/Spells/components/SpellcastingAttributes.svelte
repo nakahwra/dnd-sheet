@@ -34,7 +34,7 @@
 		{#if editMode}
 			<div class="flex items-center gap-2">
 				<Select.Root bind:selected onSelectedChange={handleSelectedChange}>
-					<Select.Trigger class="flex w-fit px-4 py-5">
+					<Select.Trigger class="flex w-fit bg-zinc-100 px-4 py-5 dark:bg-zinc-900">
 						<Select.Value placeholder="Select an ability" />
 					</Select.Trigger>
 

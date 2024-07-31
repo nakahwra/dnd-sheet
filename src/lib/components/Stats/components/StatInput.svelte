@@ -12,5 +12,5 @@
 		<slot />
 		{stat.toUpperCase()}
 	</Label>
-	<Input class="h-[42px]" id={stat} {type} bind:value />
+	<Input class="h-[42px] bg-zinc-100 dark:bg-zinc-900" id={stat} {type} bind:value />
 </div>

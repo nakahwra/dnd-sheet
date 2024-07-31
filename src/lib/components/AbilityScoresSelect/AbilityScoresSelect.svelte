@@ -19,7 +19,7 @@
 </script>
 
 <Select.Root bind:selected {onSelectedChange}>
-	<Select.Trigger class="flex w-fit min-w-[146px] px-4 py-5">
+	<Select.Trigger class="flex w-fit min-w-[146px] bg-zinc-100 px-4 py-5 dark:bg-zinc-900">
 		<Select.Value placeholder="Select an ability" />
 	</Select.Trigger>
 
