@@ -77,6 +77,7 @@ export type Spell = {
 	book: string;
 	id: number;
 	prepared?: boolean;
+	higher_levels?: string;
 };
 
 export type SpellList = {

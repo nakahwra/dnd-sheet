@@ -36,11 +36,17 @@
 
 		return components.join(', ');
 	}
+
+	// styling
+	const headerShadow = 'shadow-[0_2px_5px_5px_rgba(0,0,0,0.3)]';
+	const footerShadow = 'shadow-[0px_-2px_5px_5px_rgba(0,0,0,0.3)]';
 </script>
 
 <Dialog.Root bind:open={isOpen}>
-	<Dialog.Content>
-		<Dialog.Header>
+	<Dialog.Content class="h-fit max-h-[90%] gap-0 overflow-scroll py-0">
+		<Dialog.Header
+			class={`sticky top-0 mb-2 bg-background pb-2 pt-6 ${headerShadow} shadow-background`}
+		>
 			<Dialog.Title>{spell.name}</Dialog.Title>
 
 			<DescriptionText label="Level" value={String(spell.level)} />
@@ -52,12 +58,21 @@
 
 		{replaceFootToMeter(spell?.description)}
 
-		{#if diceNotation}
-			<DescriptionText label="Dice notations" value={diceNotation} />
+		{#if spell.higher_levels}
+			<p class="mt-2">
+				<span class="font-semibold">At Higher Levels:</span>
+				{replaceFootToMeter(spell.higher_levels)}
+			</p>
 		{/if}
 
-		{#if savingThrows}
-			<DescriptionText label="Saving Throws" value={savingThrows} />
-		{/if}
+		<div class={`sticky bottom-0 mt-2 bg-background pb-6 pt-2 shadow-background ${footerShadow}`}>
+			{#if diceNotation}
+				<DescriptionText label="Dice notations" value={diceNotation} />
+			{/if}
+
+			{#if savingThrows}
+				<DescriptionText label="Saving Throws" value={savingThrows} />
+			{/if}
+		</div>
 	</Dialog.Content>
 </Dialog.Root>
