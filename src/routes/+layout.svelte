@@ -18,6 +18,7 @@
 		clearSheet,
 		info,
 		lastSavedSheet,
+		saveSheetToLocalStorage,
 		spellcastingInfo,
 		stats,
 		unsavedChanges
@@ -37,6 +38,7 @@
 			const sheetString = reader.result as string;
 			const sheet = JSON.parse(sheetString);
 
+			saveSheetToLocalStorage(sheet);
 			lastSavedSheet.set(JSON.stringify(sheet));
 
 			info.set(sheet.info);

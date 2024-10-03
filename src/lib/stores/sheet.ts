@@ -293,7 +293,11 @@ export function clearSheet() {
 
 export const unsavedChanges = writable(false);
 
-function saveToLocalStorage() {
+export function saveSheetToLocalStorage(sheet: Sheet) {
+	localStorage.setItem('sheet', JSON.stringify(sheet));
+}
+
+function autoSaveToLocalStorage() {
 	if (!browser) return;
 
 	const sheet = {
@@ -311,13 +315,13 @@ function saveToLocalStorage() {
 		return;
 	}
 
-	localStorage.setItem('sheet', JSON.stringify(sheet));
+	saveSheetToLocalStorage(sheet);
 
 	const isUnsaved = get(unsavedChanges);
 	if (!isUnsaved) unsavedChanges.set(true);
 }
 
-const saveToLocalStorageDebounced = debounce(saveToLocalStorage, 300);
+export const saveToLocalStorageDebounced = debounce(autoSaveToLocalStorage, 300);
 
 info.subscribe(saveToLocalStorageDebounced);
 abilityScores.subscribe(saveToLocalStorageDebounced);
