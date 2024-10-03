@@ -187,7 +187,7 @@ function getLocalStorageSheet() {
 	if (!sheet) return;
 
 	const parsedSheet = JSON.parse(sheet);
-	// lastSavedSheet.set({ ...parsedSheet });
+	lastSavedSheet.set(sheet);
 
 	return parsedSheet;
 }
