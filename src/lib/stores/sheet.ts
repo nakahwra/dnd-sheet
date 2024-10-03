@@ -177,6 +177,8 @@ const charisma: AbilityScoreType = {
 	}
 };
 
+export const lastSavedSheet = writable<string | null>(null);
+
 function getLocalStorageSheet() {
 	if (!browser) return;
 
@@ -185,6 +187,7 @@ function getLocalStorageSheet() {
 	if (!sheet) return;
 
 	const parsedSheet = JSON.parse(sheet);
+	// lastSavedSheet.set({ ...parsedSheet });
 
 	return parsedSheet;
 }
@@ -201,53 +204,55 @@ const {
 
 export const sheet: Writable<Sheet> = writable({} as Sheet);
 
-export const info: Writable<Info> = writable(
-	lsInfo || {
-		characterName: '',
-		class: '',
-		race: '',
-		background: '',
-		alignment: '',
-		playerName: ''
-	}
-);
+const defaultInfo: Info = {
+	characterName: '',
+	class: '',
+	race: '',
+	background: '',
+	alignment: '',
+	playerName: ''
+};
 
+export const info: Writable<Info> = writable(lsInfo || defaultInfo);
+
+const defaultAbilityScores: AbilityScores = {
+	proficiency: 2,
+	strength,
+	dexterity,
+	constitution,
+	intelligence,
+	wisdom,
+	charisma
+};
 export const abilityScores: Writable<AbilityScores> = writable(
-	lsAbilityScores || {
-		proficiency: 2,
-		strength,
-		dexterity,
-		constitution,
-		intelligence,
-		wisdom,
-		charisma
-	}
+	lsAbilityScores || defaultAbilityScores
 );
 
-export const stats: Writable<Stats> = writable(
-	lsStats || {
-		ac: {
-			base: 10,
-			firstAbility: undefined,
-			secondAbility: undefined,
-			bonus: 0
-		},
-		initiative: {
-			bonus: 0
-		},
-		speed: {
-			base: 10,
-			bonus: 0
-		},
-		hp: {
-			max: 0,
-			current: 0,
-			temp: 0
-		}
+const defaultStats: Stats = {
+	ac: {
+		base: 10,
+		firstAbility: undefined,
+		secondAbility: undefined,
+		bonus: 0
+	},
+	initiative: {
+		bonus: 0
+	},
+	speed: {
+		base: 10,
+		bonus: 0
+	},
+	hp: {
+		max: 0,
+		current: 0,
+		temp: 0
 	}
-);
+};
 
-export const attacks: Writable<AttackType[]> = writable(lsAttacks || []);
+export const stats: Writable<Stats> = writable(lsStats || defaultStats);
+
+const defaultAttacks: AttackType[] = [];
+export const attacks: Writable<AttackType[]> = writable(lsAttacks || defaultAttacks);
 
 const defaultSpellLevel = {
 	slots: {
@@ -270,12 +275,21 @@ export const spellList: SpellList = {
 	9: { ...defaultSpellLevel, slots: { max: 0, used: 0 } }
 };
 
+const defaultSpellcastingInfo: SpellcastingInfo = {
+	spellAbility: 'intelligence',
+	spellList: { ...spellList }
+};
 export const spellcastingInfo: Writable<SpellcastingInfo> = writable(
-	lsSpellcastingInfo || {
-		spellAbility: 'intelligence',
-		spellList: { ...spellList }
-	}
+	lsSpellcastingInfo || defaultSpellcastingInfo
 );
+
+export function clearSheet() {
+	info.set(defaultInfo);
+	abilityScores.set(defaultAbilityScores);
+	stats.set(defaultStats);
+	attacks.set(defaultAttacks);
+	spellcastingInfo.set(defaultSpellcastingInfo);
+}
 
 export const unsavedChanges = writable(false);
 
@@ -289,6 +303,13 @@ function saveToLocalStorage() {
 		attacks: get(attacks),
 		spellcastingInfo: get(spellcastingInfo)
 	};
+
+	const hasChanges = JSON.stringify(sheet) !== get(lastSavedSheet);
+
+	if (!hasChanges) {
+		unsavedChanges.set(false);
+		return;
+	}
 
 	localStorage.setItem('sheet', JSON.stringify(sheet));
 
