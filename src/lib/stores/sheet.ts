@@ -1,4 +1,6 @@
-import { writable, type Writable } from 'svelte/store';
+import { browser } from '$app/environment';
+import { debounce } from '$lib/utils';
+import { get, writable, type Writable } from 'svelte/store';
 
 interface Info {
 	characterName: string;
@@ -175,18 +177,45 @@ const charisma: AbilityScoreType = {
 	}
 };
 
+export const lastSavedSheet = writable<string | null>(null);
+
+function getLocalStorageSheet() {
+	if (!browser) return;
+
+	const sheet = localStorage.getItem('sheet');
+
+	if (!sheet) return;
+
+	const parsedSheet = JSON.parse(sheet);
+	lastSavedSheet.set(sheet);
+
+	return parsedSheet;
+}
+
+const lsSheet = getLocalStorageSheet();
+
+const {
+	info: lsInfo,
+	abilityScores: lsAbilityScores,
+	stats: lsStats,
+	attacks: lsAttacks,
+	spellcastingInfo: lsSpellcastingInfo
+} = lsSheet || {};
+
 export const sheet: Writable<Sheet> = writable({} as Sheet);
 
-export const info: Writable<Info> = writable({
+const defaultInfo: Info = {
 	characterName: '',
 	class: '',
 	race: '',
 	background: '',
 	alignment: '',
 	playerName: ''
-});
+};
 
-export const abilityScores: Writable<AbilityScores> = writable({
+export const info: Writable<Info> = writable(lsInfo || defaultInfo);
+
+const defaultAbilityScores: AbilityScores = {
 	proficiency: 2,
 	strength,
 	dexterity,
@@ -194,9 +223,12 @@ export const abilityScores: Writable<AbilityScores> = writable({
 	intelligence,
 	wisdom,
 	charisma
-});
+};
+export const abilityScores: Writable<AbilityScores> = writable(
+	lsAbilityScores || defaultAbilityScores
+);
 
-export const stats: Writable<Stats> = writable({
+const defaultStats: Stats = {
 	ac: {
 		base: 10,
 		firstAbility: undefined,
@@ -215,9 +247,12 @@ export const stats: Writable<Stats> = writable({
 		current: 0,
 		temp: 0
 	}
-});
+};
 
-export const attacks: Writable<AttackType[]> = writable([]);
+export const stats: Writable<Stats> = writable(lsStats || defaultStats);
+
+const defaultAttacks: AttackType[] = [];
+export const attacks: Writable<AttackType[]> = writable(lsAttacks || defaultAttacks);
 
 const defaultSpellLevel = {
 	slots: {
@@ -240,7 +275,56 @@ export const spellList: SpellList = {
 	9: { ...defaultSpellLevel, slots: { max: 0, used: 0 } }
 };
 
-export const spellcastingInfo: Writable<SpellcastingInfo> = writable({
+const defaultSpellcastingInfo: SpellcastingInfo = {
 	spellAbility: 'intelligence',
 	spellList: { ...spellList }
-});
+};
+export const spellcastingInfo: Writable<SpellcastingInfo> = writable(
+	lsSpellcastingInfo || defaultSpellcastingInfo
+);
+
+export function clearSheet() {
+	info.set(defaultInfo);
+	abilityScores.set(defaultAbilityScores);
+	stats.set(defaultStats);
+	attacks.set(defaultAttacks);
+	spellcastingInfo.set(defaultSpellcastingInfo);
+}
+
+export const unsavedChanges = writable(false);
+
+export function saveSheetToLocalStorage(sheet: Sheet) {
+	localStorage.setItem('sheet', JSON.stringify(sheet));
+}
+
+function autoSaveToLocalStorage() {
+	if (!browser) return;
+
+	const sheet = {
+		info: get(info),
+		abilityScores: get(abilityScores),
+		stats: get(stats),
+		attacks: get(attacks),
+		spellcastingInfo: get(spellcastingInfo)
+	};
+
+	const hasChanges = JSON.stringify(sheet) !== get(lastSavedSheet);
+
+	if (!hasChanges) {
+		unsavedChanges.set(false);
+		return;
+	}
+
+	saveSheetToLocalStorage(sheet);
+
+	const isUnsaved = get(unsavedChanges);
+	if (!isUnsaved) unsavedChanges.set(true);
+}
+
+export const saveToLocalStorageDebounced = debounce(autoSaveToLocalStorage, 300);
+
+info.subscribe(saveToLocalStorageDebounced);
+abilityScores.subscribe(saveToLocalStorageDebounced);
+stats.subscribe(saveToLocalStorageDebounced);
+attacks.subscribe(saveToLocalStorageDebounced);
+spellcastingInfo.subscribe(saveToLocalStorageDebounced);

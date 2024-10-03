@@ -88,3 +88,17 @@ export function formatDate(date: Date) {
 
 	return `${year}${month}${day}`;
 }
+
+export function debounce<T extends (...args: unknown[]) => unknown>(func: T, wait: number) {
+	let timeout: ReturnType<typeof setTimeout> | undefined;
+
+	return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+		const later = () => {
+			timeout = undefined;
+			func.apply(this, args);
+		};
+
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+	};
+}
