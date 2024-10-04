@@ -51,6 +51,7 @@ interface Stats {
 		current: number;
 		temp: number;
 	};
+	notes?: string;
 }
 
 export type AttackType = {

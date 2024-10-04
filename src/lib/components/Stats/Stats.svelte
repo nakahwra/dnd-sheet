@@ -3,7 +3,9 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Switch } from '$lib/components/ui/switch';
+	import { Textarea } from '$lib/components/ui/textarea';
 
+	import NotesIcon from '~icons/material-symbols/add-notes-outline';
 	import ACIcon from '~icons/material-symbols/shield-outline';
 	import InitIcon from '~icons/mdi/arrow';
 	import HPIcon from '~icons/mdi/heart-outline';
@@ -67,96 +69,110 @@
 		</Card.Title>
 		<Switch class="!mt-0" bind:checked={editMode} />
 	</Card.Header>
-	<Card.Content
-		class={`grid gap-2 ${editMode ? '' : 'grid-cols-3 sm:grid-cols-5 md:grid-cols-3 lg:grid-cols-5'}`}
-	>
-		<!-- Armor Class -->
-		{#if editMode}
-			<div>
-				<svelte:component this={ICONS.ac()} class="mb-2" />
+	<Card.Content>
+		<div
+			class={`grid gap-2 ${editMode ? '' : 'grid-cols-3 sm:grid-cols-5 md:grid-cols-3 lg:grid-cols-5'}`}
+		>
+			<!-- Armor Class -->
+			{#if editMode}
+				<div>
+					<svelte:component this={ICONS.ac()} class="mb-2" />
 
-				<div class="flex w-full flex-col gap-4 lg:flex-row">
-					<StatInput stat="Base AC" type="number" bind:value={$stats.ac.base} />
-					<div class="flex flex-col justify-between space-y-2">
-						<Label class="text-sm font-semibold leading-none">ABILITY 1</Label>
-						<div class="flex items-center space-x-1">
-							<AbilityScoresSelect
-								ability={$stats.ac.firstAbility}
-								onSelectedChange={(selected) => ($stats.ac.firstAbility = selected?.value)}
-								noneOption
-							/>
-							<span>{acMod1 ? getSignedModifier(acMod1) : '+0'}</span>
+					<div class="flex w-full flex-col gap-4 lg:flex-row">
+						<StatInput stat="Base AC" type="number" bind:value={$stats.ac.base} />
+						<div class="flex flex-col justify-between space-y-2">
+							<Label class="text-sm font-semibold leading-none">ABILITY 1</Label>
+							<div class="flex items-center space-x-1">
+								<AbilityScoresSelect
+									ability={$stats.ac.firstAbility}
+									onSelectedChange={(selected) => ($stats.ac.firstAbility = selected?.value)}
+									noneOption
+								/>
+								<span>{acMod1 ? getSignedModifier(acMod1) : '+0'}</span>
+							</div>
 						</div>
-					</div>
-					<div class="flex flex-col justify-between space-y-2">
-						<Label class="text-sm font-semibold leading-none">ABILITY 2</Label>
-						<div class="flex items-center space-x-1">
-							<AbilityScoresSelect
-								ability={$stats.ac.secondAbility}
-								onSelectedChange={(selected) => ($stats.ac.secondAbility = selected?.value)}
-								noneOption
-							/>
-							<span>{acMod2 ? getSignedModifier(acMod2) : '+0'}</span>
+						<div class="flex flex-col justify-between space-y-2">
+							<Label class="text-sm font-semibold leading-none">ABILITY 2</Label>
+							<div class="flex items-center space-x-1">
+								<AbilityScoresSelect
+									ability={$stats.ac.secondAbility}
+									onSelectedChange={(selected) => ($stats.ac.secondAbility = selected?.value)}
+									noneOption
+								/>
+								<span>{acMod2 ? getSignedModifier(acMod2) : '+0'}</span>
+							</div>
 						</div>
+						<StatInput stat="Other bonuses" type="number" bind:value={$stats.ac.bonus} />
 					</div>
-					<StatInput stat="Other bonuses" type="number" bind:value={$stats.ac.bonus} />
+
+					<Separator class="mb-2 mt-4" />
 				</div>
+			{:else}
+				<StatView label="AC" value={ac}>
+					<svelte:component this={ICONS.ac()} />
+				</StatView>
+			{/if}
 
-				<Separator class="mb-2 mt-4" />
-			</div>
-		{:else}
-			<StatView label="AC" value={ac}>
-				<svelte:component this={ICONS.ac()} />
-			</StatView>
-		{/if}
+			<!-- Initiative -->
+			{#if editMode}
+				<div>
+					<svelte:component this={ICONS.initiative()} class="mb-2" />
 
-		<!-- Initiative -->
-		{#if editMode}
-			<div>
-				<svelte:component this={ICONS.initiative()} class="mb-2" />
-
-				<div class="flex w-full flex-col gap-4 lg:flex-row">
-					<StatView label="Base Initiative" value={`DEX: ${getSignedModifier(initMod)}`} />
-					<StatInput stat="Other bonuses" type="number" bind:value={$stats.initiative.bonus} />
+					<div class="flex w-full flex-col gap-4 lg:flex-row">
+						<StatView label="Base Initiative" value={`DEX: ${getSignedModifier(initMod)}`} />
+						<StatInput stat="Other bonuses" type="number" bind:value={$stats.initiative.bonus} />
+					</div>
+					<Separator class="mb-2 mt-4" />
 				</div>
-				<Separator class="mb-2 mt-4" />
-			</div>
-		{:else}
-			<StatView label="Initiative" value={initiative}>
-				<svelte:component this={ICONS.initiative()} />
-			</StatView>
-		{/if}
+			{:else}
+				<StatView label="Initiative" value={initiative}>
+					<svelte:component this={ICONS.initiative()} />
+				</StatView>
+			{/if}
 
-		<!-- Speed -->
-		{#if editMode}
-			<div>
-				<svelte:component this={ICONS.speed()} class="mb-2" />
+			<!-- Speed -->
+			{#if editMode}
+				<div>
+					<svelte:component this={ICONS.speed()} class="mb-2" />
 
-				<div class="flex w-full flex-col gap-4 lg:flex-row">
-					<StatInput stat="Base speed" type="number" bind:value={$stats.speed.base} />
-					<StatInput stat="Other bonuses" type="number" bind:value={$stats.speed.bonus} />
+					<div class="flex w-full flex-col gap-4 lg:flex-row">
+						<StatInput stat="Base speed" type="number" bind:value={$stats.speed.base} />
+						<StatInput stat="Other bonuses" type="number" bind:value={$stats.speed.bonus} />
+					</div>
+					<Separator class="mb-2 mt-4" />
 				</div>
-				<Separator class="mb-2 mt-4" />
-			</div>
-		{:else}
-			<StatView label="Speed" value={speed}>
-				<svelte:component this={ICONS.speed()} />
-			</StatView>
-		{/if}
+			{:else}
+				<StatView label="Speed" value={speed}>
+					<svelte:component this={ICONS.speed()} />
+				</StatView>
+			{/if}
 
-		<!-- Hit Points -->
-		{#if editMode}
-			<div>
-				<svelte:component this={ICONS.hp()} class="mb-2" />
-				<div class="flex w-full flex-col gap-4 lg:flex-row">
-					<StatInput stat="Max hp" type="number" bind:value={$stats.hp.max} />
+			<!-- Hit Points -->
+			{#if editMode}
+				<div>
+					<svelte:component this={ICONS.hp()} class="mb-2" />
+					<div class="flex w-full flex-col gap-4 lg:flex-row">
+						<StatInput stat="Max hp" type="number" bind:value={$stats.hp.max} />
+					</div>
 				</div>
-			</div>
-		{:else}
-			<StatInput stat={`HP (${$stats.hp.max})`} type="number" bind:value={$stats.hp.current}>
-				<svelte:component this={ICONS.hp()} />
-			</StatInput>
-			<StatInput stat="Temp HP" type="number" bind:value={$stats.hp.temp} />
-		{/if}
+			{:else}
+				<StatInput stat={`HP (${$stats.hp.max})`} type="number" bind:value={$stats.hp.current}>
+					<svelte:component this={ICONS.hp()} />
+				</StatInput>
+				<StatInput stat="Temp HP" type="number" bind:value={$stats.hp.temp} />
+			{/if}
+		</div>
+
+		<div class="@container mt-4 w-full">
+			<Label class="flex gap-1 text-sm font-semibold leading-none">
+				<NotesIcon /> Notes
+			</Label>
+
+			<Textarea
+				class="@[475px]:min-h-fit mt-2  min-h-[120px]"
+				placeholder="Add here any other stat or character notes you want to keep track of. E.g. Ki/sorcery points, race/background details, bonuses, character quirks etc."
+				bind:value={$stats.notes}
+			/>
+		</div>
 	</Card.Content>
 </Card.Root>
